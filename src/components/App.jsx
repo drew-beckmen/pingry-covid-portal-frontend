@@ -2,6 +2,8 @@ import React from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'; 
 import NavBar from './NavBar'; 
 import Form from './Form'; 
+import StudentsList from './StudentsList';
+import ShowStudent from './ShowStudent'
 
 
 // import Home from './components/Home'; 
@@ -11,7 +13,8 @@ class App extends React.Component {
         user: {
             id: 0, 
             username: ""
-        }
+        }, 
+        token: ""
     }
 
     renderForm = (routerProps) => {
@@ -32,7 +35,7 @@ class App extends React.Component {
         .then(data => {
             if (data.user) {
                 localStorage.setItem("token", data.jwt)
-                this.setState({user: data.user}, () => {
+                this.setState({user: data.user, token: data.jwt}, () => {
                     this.props.history.push("/students")
                 })
             }
@@ -42,13 +45,21 @@ class App extends React.Component {
         })
     }
 
+    renderStudents = (routerProps) => {
+        return <StudentsList 
+            user={this.state.user}
+            token={this.state.token} />
+    }
+
     render(){
         console.log(this.props, "APP PROPS");
         return (
             <div className="App">
                 <NavBar/>
                 <Switch>
-                    <Route path="/login" render={ this.renderForm } />
+                    <Route exact path="/login" render={ this.renderForm } />
+                    <Route exact path="/students" render={this.renderStudents} />
+                    <Route path="/students/:id" component={ShowStudent} />
                     {/* <Route path="/" exact render={() => <Home /> } /> */}
                     <Route render={ () => <p>Page not Found</p> } />
                 </Switch>

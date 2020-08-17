@@ -13,7 +13,7 @@ const NavBar = () => {
             <a className="navbar-nav" href="/isolations">Isolations</a>
             <a className="navbar-nav" href="/login">Login</a>
             <span className="navbar-text">
-                Track Pingry's COVID Status
+                Track Pingry's COVID Stats
             </span>
         </nav>
     )
