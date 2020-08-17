@@ -21,6 +21,8 @@ class ShowStudent extends React.Component {
         .then(obj => this.setState({student: obj}))
     }
 
+    //handle submit for forms on both isolations and quarantines
+
     getIsolations = () => this.state.student.isolations
     getQuarantines = () => this.state.student.quarantines
 

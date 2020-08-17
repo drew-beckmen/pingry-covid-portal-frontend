@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import Form from './Form'; 
 import StudentsList from './StudentsList';
 import ShowStudent from './ShowStudent'
+import IsolationsList from './IsolationsList'
 
 
 // import Home from './components/Home'; 
@@ -60,6 +61,7 @@ class App extends React.Component {
                     <Route exact path="/login" render={ this.renderForm } />
                     <Route exact path="/students" render={this.renderStudents} />
                     <Route path="/students/:id" component={ShowStudent} />
+                    <Route path="/isolations" component={IsolationsList} />
                     {/* <Route path="/" exact render={() => <Home /> } /> */}
                     <Route render={ () => <p>Page not Found</p> } />
                 </Switch>
