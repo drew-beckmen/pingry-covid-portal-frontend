@@ -1,12 +1,13 @@
 import React from 'react'; 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'; 
 import NavBar from './NavBar'; 
-import Form from './Form'; 
+import LoginForm from './LoginForm'; 
 import StudentsList from './StudentsList';
 import ShowStudent from './ShowStudent'
 import IsolationsList from './IsolationsList'
-
-
+import QuarantineList from './QuarantinesList'
+import EditStudent from './EditStudent'
+import IsolationShow from './IsolationShow'
 // import Home from './components/Home'; 
 
 class App extends React.Component {
@@ -20,7 +21,7 @@ class App extends React.Component {
 
     renderForm = (routerProps) => {
         if(routerProps.location.pathname === "/login"){
-            return <Form formName="Login to Pingry COVID Portal" handleSubmit={this.handleLoginSubmit}/>
+            return <LoginForm formName="Login to Pingry COVID Portal" handleSubmit={this.handleLoginSubmit}/>
         }
     }
 
@@ -60,8 +61,11 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path="/login" render={ this.renderForm } />
                     <Route exact path="/students" render={this.renderStudents} />
-                    <Route path="/students/:id" component={ShowStudent} />
-                    <Route path="/isolations" component={IsolationsList} />
+                    <Route exact path="/students/:id" component={ShowStudent} />
+                    <Route exact path="/students/:id/edit" component={EditStudent} />
+                    <Route exact path="/isolations" component={IsolationsList} />
+                    <Route path="/isolations/:id" component={IsolationShow} />
+                    <Route path="/quarantines" component={QuarantineList} />
                     {/* <Route path="/" exact render={() => <Home /> } /> */}
                     <Route render={ () => <p>Page not Found</p> } />
                 </Switch>

@@ -23,12 +23,13 @@ class IsolationsList extends React.Component {
     render() {
         const isolationsList = this.state.isolations.map(isolation => {
             return (
-                <IsolationShow key={isolation.id} isolation={isolation} /> 
+                <IsolationShow key={isolation.id} isolation={isolation} showDetails={true}  /> 
             )
         })
         return (
             <div>
-                <h1 style={{color: "darkblue"}}>All of the Isolations at Pingry</h1>
+                <h1 style={{color: "darkblue"}}>{isolationsList.length} Total People In Isolation at Pingry</h1>
+                {/* insert some date on overall stats here */}
                 {isolationsList}
             </div>
         )

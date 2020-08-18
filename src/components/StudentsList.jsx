@@ -23,7 +23,10 @@ class StudentsList extends React.Component {
     render() {
         const studentsList = this.state.students.map(student => {
             return (
-                <StudentCard key={student.id} student={student} /> 
+                <div>
+                    <StudentCard key={student.id} student={student} /> 
+                    {/* <a href={`/students/${student.id}`} className="btn btn-secondary active" role="button" aria-pressed="true">See Details</a> */}
+                </div>
             )
         })
         return (
