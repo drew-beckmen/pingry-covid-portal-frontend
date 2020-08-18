@@ -13,6 +13,22 @@ class ShowStudent extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleDestroy = this.handleDestroy.bind(this)
+    }
+
+    handleDestroy = (id, key) => {
+        let oldState = {...this.state.student}
+        oldState[key] = oldState[key].filter(q => q.id != id )
+        this.setState({student: oldState})
+
+        //Delete from the Database
+        fetch(`http://localhost:3000/api/v1/${key}/${id}`, {
+            method: "DELETE", 
+            headers: {
+                "Authorization": `bearer ${localStorage.token}`
+            }
+        })
+        .then(console.log("SUCCESSFULLY DELTED FROM DATABASE"))
     }
 
     handleChange = (e) => {
@@ -62,7 +78,7 @@ class ShowStudent extends React.Component {
             )
 
             const quarantinesList = this.getQuarantines().map(quarantine =>
-                <QuarantineShow key={quarantine.id} quarantine={quarantine} showButton={true} />
+                <QuarantineShow key={quarantine.id} quarantine={quarantine} showButton={true} destroy={this.handleDestroy}/>
             )
 
             return (

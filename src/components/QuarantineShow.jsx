@@ -14,8 +14,10 @@ class QuarantineShow extends React.Component {
         }
         
         this.editBtn = ""
+        this.deleteBtn = ""
         if (this.props.showButton) {
-            this.editBtn = <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Quarantine</button>
+            this.editBtn = <button className="btn btn-warning active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Quarantine</button>
+            this.deleteBtn = <button className="btn btn-danger active" onClick={this.handleClick}>Delete Quarantine</button>
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,7 +25,6 @@ class QuarantineShow extends React.Component {
 
     handleChange = (e) => {
         let {name, value} = e.target
-        { debugger }
         if (name === "completed") {
             if (document.getElementById("completed").checked) {
                 value = true 
@@ -36,6 +37,11 @@ class QuarantineShow extends React.Component {
         console.log(oldState)
         oldState[name] = value 
         this.setState({quarantine: oldState})
+    }
+
+    handleClick = (e) => {
+        //remove from the DOM using parent function in this.props.destroy
+        this.props.destroy(this.state.quarantine.id, "quarantines")
     }
 
     handleSubmit = (e) => {
@@ -63,6 +69,7 @@ class QuarantineShow extends React.Component {
                     <p className="card-text">{this.state.quarantine.completed ? "Quarantine Completed" : "Quarantine Incomplete"}</p>
                     { this.btn || "" }
                     {this.editBtn || ""}
+                    <p>{ this.deleteBtn || ""}</p>
                     {this.state.showEdit && <EditQuarantine info={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>}
                 </div>
             </div>
