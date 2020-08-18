@@ -2,6 +2,8 @@ import React from 'react';
 import IsolationShow from './IsolationShow'
 import QuarantineShow from './QuarantineShow'
 import EditStudent from './EditStudent';
+import NewIsolationForm from './NewIsolationForm';
+import NewQuarantineForm from './NewQuarantineForm'
 
 
 class ShowStudent extends React.Component {
@@ -9,11 +11,14 @@ class ShowStudent extends React.Component {
         super(props); 
         this.state = {
             student: {}, 
-            showEdit: false
+            showEdit: false, 
+            showCreateQuarantine: false, 
+            showCreateIsolation: false 
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleDestroy = this.handleDestroy.bind(this)
+        this.addOneItem = this.addOneItem.bind(this)
     }
 
     handleDestroy = (id, key) => {
@@ -28,7 +33,6 @@ class ShowStudent extends React.Component {
                 "Authorization": `bearer ${localStorage.token}`
             }
         })
-        .then(console.log("SUCCESSFULLY DELTED FROM DATABASE"))
     }
 
     handleChange = (e) => {
@@ -63,6 +67,13 @@ class ShowStudent extends React.Component {
         .then(obj => this.setState({student: obj}))
     }
 
+    addOneItem(itm, key) {
+        { debugger }
+        delete itm.student
+        this.state.student[key].push(itm)
+        key === "isolations" ? this.setState({showCreateIsolation: false}) : this.setState({showCreateQuarantine: false})
+    }
+
     //handle submit for forms on both isolations and quarantines
 
     getIsolations = () => this.state.student.isolations
@@ -70,11 +81,10 @@ class ShowStudent extends React.Component {
 
 
     render() {
-
         if (this.state.student.id) {
 
             const isolationsList = this.getIsolations().map(isolation =>
-                <IsolationShow key={isolation.id} isolation={isolation} showButton={true} />
+                <IsolationShow key={isolation.id} isolation={isolation} showButton={true} destroy={this.handleDestroy} />
             )
 
             const quarantinesList = this.getQuarantines().map(quarantine =>
@@ -88,8 +98,12 @@ class ShowStudent extends React.Component {
                             <h5 className="card-title">Name: {this.state.student.first_name + " " + this.state.student.last_name}</h5>
                             <p className="card-text">Grade: {this.state.student.grade}</p>
                             <p className="card-text">Campus: {this.state.student.campus}</p>
-                            <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Student</button>
+                            {" | "} <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Student</button> {" | "}
+                            <button className="btn btn-secondary active" onClick={() => this.setState({showCreateIsolation: !this.state.showCreateIsolation})}>Create Isolation</button> {" | "}
+                            <button className="btn btn-secondary active" onClick={() => this.setState({showCreateQuarantine: !this.state.showCreateQuarantine})}>Create Quarantine</button> {" | "}
                             {this.state.showEdit && <EditStudent info={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>}
+                            {this.state.showCreateIsolation && <NewIsolationForm handleChange={this.handleChange} addOneIsolation={this.addOneItem} studentId={this.state.student.id}/>}
+                            {this.state.showCreateQuarantine && <NewQuarantineForm handleChange={this.handleChange} addOneQuarantine={this.addOneItem} studentId={this.state.student.id}/>}
                         </div>
                     </div>
                     <h3 style={{"textAlign": "center", color: "red"}}>Isolations</h3>

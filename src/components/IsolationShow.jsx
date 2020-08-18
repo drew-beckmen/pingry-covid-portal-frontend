@@ -16,8 +16,10 @@ class IsolationShow extends React.Component {
         }
         
         this.editBtn = ""
+        this.deleteBtn = ""
         if (this.props.showButton) {
-            this.editBtn = <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Isolation</button>
+            this.editBtn = <button className="btn btn-warning active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Isolation</button>
+            this.deleteBtn = <button className="btn btn-danger active" onClick={this.handleClick}>Delete Isolation</button>
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -45,6 +47,10 @@ class IsolationShow extends React.Component {
         console.log(oldState)
         oldState[name] = value 
         this.setState({isolation: oldState})
+    }
+
+    handleClick = (e) => {
+        this.props.destroy(this.state.isolation.id, "isolations")
     }
 
     //this isn't very DRY, but focus on refactor later.
@@ -75,7 +81,8 @@ class IsolationShow extends React.Component {
                     <p className="card-text">Earliest Possible End Date: {this.state.isolation.end_date}</p>
                     <p className="card-text">{this.state.isolation.completed ? "Isolation Completed" : "Isolation Incomplete"}</p>
                     {this.btn || ""}
-                    {this.editBtn || ""}
+                    {this.editBtn || ""} {" | "}
+                    {this.deleteBtn || "" }
                     {this.state.showEdit && <EditIsolation info={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>}
                 </div>
             </div>

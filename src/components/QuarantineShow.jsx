@@ -34,9 +34,8 @@ class QuarantineShow extends React.Component {
             }
         }
         let oldState = {...this.state.quarantine}
-        console.log(oldState)
         oldState[name] = value 
-        this.setState({quarantine: oldState})
+        this.setState({quarantine: oldState}, () => console.log(this.state.quarantine))
     }
 
     handleClick = (e) => {
@@ -65,11 +64,11 @@ class QuarantineShow extends React.Component {
         return (
             <div className="card">
                 <div className="card-body">
-                    <h5 className="card-title">Date of Exposure: {this.props.quarantine.exposure}</h5>
+                    <h5 className="card-title">Date of Exposure: {this.state.quarantine.exposure}</h5>
                     <p className="card-text">{this.state.quarantine.completed ? "Quarantine Completed" : "Quarantine Incomplete"}</p>
                     { this.btn || "" }
-                    {this.editBtn || ""}
-                    <p>{ this.deleteBtn || ""}</p>
+                    {this.editBtn || ""}{" | "}
+                    { this.deleteBtn || ""} 
                     {this.state.showEdit && <EditQuarantine info={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>}
                 </div>
             </div>
