@@ -6,7 +6,8 @@ class StudentsList extends React.Component {
     constructor(props) {
         super(props); 
         this.state = {
-            students: []
+            students: [], 
+            search: ""
         }
     }
 
@@ -19,18 +20,29 @@ class StudentsList extends React.Component {
         .then(resp => resp.json())
         .then(obj => this.setState({students: obj}))
     }
+    
+    handleChange = (e) => {
+        let {name, value} = e.target 
+        this.setState({[name]: value})
+    }
 
     render() {
-        const studentsList = this.state.students.map(student => {
+        console.log(this.state)
+        const listToMap = this.state.students.filter(student => {
+            let fullName = student.first_name + " " + student.last_name 
+            return fullName.includes(this.state.search)
+        })
+        const studentsList = listToMap.map(student => {
             return (
-                <div>
                     <StudentCard key={student.id} student={student} /> 
-                    {/* <a href={`/students/${student.id}`} className="btn btn-secondary active" role="button" aria-pressed="true">See Details</a> */}
-                </div>
             )
         })
         return (
-            <div>{studentsList}</div>
+            <div> 
+                <label htmlFor="search">Search by Name</label>
+                <input type="text" className="form-control" name="search" placeholder="Search..." value={this.state.search} onChange={this.handleChange} />
+                {studentsList}
+            </div>
         )
     }
 }

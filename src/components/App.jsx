@@ -8,16 +8,22 @@ import IsolationsList from './IsolationsList'
 import QuarantineList from './QuarantinesList'
 import EditStudent from './EditStudent'
 import IsolationShow from './IsolationShow'
+import Profile from './Profile'
 // import Home from './components/Home'; 
 
 class App extends React.Component {
-    state={
-        user: {
-            id: 0, 
-            username: ""
-        }, 
-        token: ""
+    
+    constructor() {
+        super()
+        this.state={
+            user: {
+                id: 0, 
+                username: ""
+            }, 
+            token: ""
+        }
     }
+    
 
     renderForm = (routerProps) => {
         if(routerProps.location.pathname === "/login"){
@@ -47,14 +53,11 @@ class App extends React.Component {
         })
     }
 
-    renderStudents = (routerProps) => {
-        return <StudentsList 
-            user={this.state.user}
-            token={this.state.token} />
+    renderStudents = () => {
+        return <StudentsList />
     }
 
     render(){
-        console.log(this.props, "APP PROPS");
         return (
             <div className="App">
                 <NavBar/>
@@ -66,6 +69,7 @@ class App extends React.Component {
                     <Route exact path="/isolations" component={IsolationsList} />
                     <Route path="/isolations/:id" component={IsolationShow} />
                     <Route path="/quarantines" component={QuarantineList} />
+                    <Route exact path="/profile" render={() => <Profile {...this.state}/>} />
                     {/* <Route path="/" exact render={() => <Home /> } /> */}
                     <Route render={ () => <p>Page not Found</p> } />
                 </Switch>

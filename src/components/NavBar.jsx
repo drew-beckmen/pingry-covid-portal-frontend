@@ -12,6 +12,7 @@ const NavBar = () => {
             <a className="navbar-nav" href="/quarantines">Quarantines</a>
             <a className="navbar-nav" href="/isolations">Isolations</a>
             <a className="navbar-nav" href="/login">Login</a>
+            <a className="navbar-nav" href="/profile">Profile</a>
             <span className="navbar-text">
                 Track Pingry's COVID Stats
             </span>
