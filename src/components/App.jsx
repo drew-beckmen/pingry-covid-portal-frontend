@@ -9,7 +9,7 @@ import QuarantineList from './QuarantinesList'
 import EditStudent from './EditStudent'
 import IsolationShow from './IsolationShow'
 import Profile from './Profile'
-// import Home from './components/Home'; 
+import Home from './Home'; 
 
 class App extends React.Component {
     
@@ -26,6 +26,11 @@ class App extends React.Component {
     
 
     renderForm = (routerProps) => {
+        // { debugger }
+        // if (localStorage.token) {
+        //     localStorage.removeItem("token")
+        //     this.props.history.push("/")
+        // }
         if(routerProps.location.pathname === "/login"){
             return <LoginForm formName="Login to Pingry COVID Portal" handleSubmit={this.handleLoginSubmit}/>
         }
@@ -42,9 +47,11 @@ class App extends React.Component {
         .then(res => res.json())
         .then(data => {
             if (data.user) {
+                localStorage.setItem("user_id", data.user.id)
                 localStorage.setItem("token", data.jwt)
+                localStorage.setItem("name", data.user.username)
                 this.setState({user: data.user, token: data.jwt}, () => {
-                    this.props.history.push("/students")
+                    this.props.history.push("/")
                 })
             }
             else {
@@ -58,9 +65,13 @@ class App extends React.Component {
     }
 
     render(){
+        let navbarProp = "Login"
+        if (localStorage.token) {
+            navbarProp = "Logout"
+        }
         return (
             <div className="App">
-                <NavBar/>
+                <NavBar action={navbarProp}/>
                 <Switch>
                     <Route exact path="/login" render={ this.renderForm } />
                     <Route exact path="/students" render={this.renderStudents} />
@@ -69,8 +80,8 @@ class App extends React.Component {
                     <Route exact path="/isolations" component={IsolationsList} />
                     <Route path="/isolations/:id" component={IsolationShow} />
                     <Route path="/quarantines" component={QuarantineList} />
-                    <Route exact path="/profile" render={() => <Profile {...this.state}/>} />
-                    {/* <Route path="/" exact render={() => <Home /> } /> */}
+                    <Route exact path="/profile" component={Profile} />
+                    <Route path="/" exact component={Home} />
                     <Route render={ () => <p>Page not Found</p> } />
                 </Switch>
             </div>

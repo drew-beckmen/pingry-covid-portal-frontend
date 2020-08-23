@@ -61,11 +61,15 @@ class QuarantineShow extends React.Component {
 
     
     render() {
+        const afterTwoWeeks = new Date(Date.parse(this.state.quarantine.exposure) + 12096e5)
+        const endDateToDisplay = `${afterTwoWeeks.getMonth()}/${afterTwoWeeks.getDate()}/${afterTwoWeeks.getYear()}`
         return (
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Date of Exposure: {this.state.quarantine.exposure}</h5>
                     <p className="card-text">{this.state.quarantine.completed ? "Quarantine Completed" : "Quarantine Incomplete"}</p>
+                    <p className="card-text">Notes: {this.state.quarantine.notes ? this.state.quarantine.notes : "No Notes Added"}</p>
+                    <p className="card-text">Final Day of Quarantine if No Conversion to Isolation: {endDateToDisplay}</p>
                     { this.btn || "" }
                     {this.editBtn || ""}{" | "}
                     { this.deleteBtn || ""} 

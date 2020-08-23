@@ -1,7 +1,21 @@
 import React from 'react'; 
-// import {NavLink} from 'react-router-dom'; 
+import { withRouter } from 'react-router-dom'; 
 
-const NavBar = () => {
+const NavBar = (props) => {
+
+    //login and logout buttons separately 
+    let login; 
+    let logout; 
+    if (!localStorage.token) {
+        login = <a className="navbar-nav" href="/login">{props.action}</a>  
+    }
+    else {
+        logout = <button className="btn btn-link" onClick={() => {
+            localStorage.removeItem('token')
+            props.history.push("/")
+        }}>{props.action}</button>
+    }
+
     return (
         <nav className="navbar navbar-light bg-light">
             <a className="navbar-brand" href="/">
@@ -11,8 +25,10 @@ const NavBar = () => {
             <a className="navbar-nav" href="/students">Students</a>
             <a className="navbar-nav" href="/quarantines">Quarantines</a>
             <a className="navbar-nav" href="/isolations">Isolations</a>
-            <a className="navbar-nav" href="/login">Login</a>
             <a className="navbar-nav" href="/profile">Profile</a>
+            { props.action === "Login" && login}
+            { props.action === "Logout" && logout }
+
             <span className="navbar-text">
                 Track Pingry's COVID Stats
             </span>
@@ -20,4 +36,4 @@ const NavBar = () => {
     )
 }
 
-export default NavBar; 
+export default withRouter(NavBar); 

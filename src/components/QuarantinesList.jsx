@@ -1,5 +1,7 @@
 import React from 'react'; 
 import QuarantineShow from './QuarantineShow'
+import { Redirect } from 'react-router-dom'; 
+
 
 class QuarantinesList extends React.Component {
 
@@ -21,6 +23,9 @@ class QuarantinesList extends React.Component {
     }
 
     render() {
+        if (!localStorage.token) {
+            return <Redirect to="/login" />
+        }
         const quarantinesList = this.state.quarantines.map(quarantine => {
             return (
                 <QuarantineShow key={quarantine.id} quarantine={quarantine} showDetails={true} /> 

@@ -1,5 +1,7 @@
 import React from 'react'; 
 import StudentCard from './StudentCard'
+import { Redirect } from 'react-router-dom'; 
+
 
 class StudentsList extends React.Component {
 
@@ -27,7 +29,10 @@ class StudentsList extends React.Component {
     }
 
     render() {
-        console.log(this.state)
+        if (!localStorage.token) {
+            return <Redirect to="/login" />
+        }
+
         const listToMap = this.state.students.filter(student => {
             let fullName = student.first_name + " " + student.last_name 
             return fullName.includes(this.state.search)

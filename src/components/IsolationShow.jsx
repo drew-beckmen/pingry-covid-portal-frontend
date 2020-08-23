@@ -43,8 +43,16 @@ class IsolationShow extends React.Component {
                 value = false 
             }
         }
+        if (name === "confirmed") {
+            if (document.getElementById("confirmed").checked) {
+                value = true 
+            }
+            else {
+                value = false 
+            }
+        }
         let oldState = {...this.state.isolation}
-        console.log(oldState)
+        // console.log(oldState)
         oldState[name] = value 
         this.setState({isolation: oldState})
     }
@@ -76,10 +84,12 @@ class IsolationShow extends React.Component {
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Start Date: {this.state.isolation.start_isolation}</h5>
+                    <h5 className="card-title">{this.state.isolation.confirmed ? "Confirmed Positive" : "Presumed Positive"}</h5>
                     <p className="card-text">Date Symptoms Began Improving: {this.state.isolation.date_improving || "Not Yet Improving"}</p>
                     <p className="card-text">Is the student fever free?: {this.state.isolation.fever_free ? "Yes" : "No"}</p>
                     <p className="card-text">Earliest Possible End Date: {this.state.isolation.end_date}</p>
                     <p className="card-text">{this.state.isolation.completed ? "Isolation Completed" : "Isolation Incomplete"}</p>
+                    <p className="card-text">Notes: {this.state.isolation.notes ? this.state.isolation.notes : "No Notes Added"}</p>
                     {this.btn || ""}
                     {this.editBtn || ""} {" | "}
                     {this.deleteBtn || "" }

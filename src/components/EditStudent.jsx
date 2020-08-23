@@ -13,6 +13,8 @@ const EditStudent = (props) => {
                 <input className="form-control" type="text" name="grade" value={props.info.student.grade} onChange={props.handleChange}/>
                 <label>Campus:</label>
                 <input className="form-control" type="text" name="campus" value={props.info.student.campus} onChange={props.handleChange}/>
+                <label>Cohort:</label>
+                <input className="form-control" type="text" name="cohort" value={props.info.student.cohort} onChange={props.handleChange}/>
                 <input className="form-control" type="submit" value="Submit"/>
             </div>
         </form>

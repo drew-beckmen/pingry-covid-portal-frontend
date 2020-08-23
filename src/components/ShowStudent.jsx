@@ -23,7 +23,7 @@ class ShowStudent extends React.Component {
 
     handleDestroy = (id, key) => {
         let oldState = {...this.state.student}
-        oldState[key] = oldState[key].filter(q => q.id != id )
+        oldState[key] = oldState[key].filter(q => q.id !== id )
         this.setState({student: oldState})
 
         //Delete from the Database
@@ -68,7 +68,6 @@ class ShowStudent extends React.Component {
     }
 
     addOneItem(itm, key) {
-        { debugger }
         delete itm.student
         this.state.student[key].push(itm)
         key === "isolations" ? this.setState({showCreateIsolation: false}) : this.setState({showCreateQuarantine: false})
@@ -98,6 +97,7 @@ class ShowStudent extends React.Component {
                             <h5 className="card-title">Name: {this.state.student.first_name + " " + this.state.student.last_name}</h5>
                             <p className="card-text">Grade: {this.state.student.grade}</p>
                             <p className="card-text">Campus: {this.state.student.campus}</p>
+                            <p className="card-text">Cohort: {this.state.student.cohort}</p>
                             {" | "} <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Student</button> {" | "}
                             <button className="btn btn-secondary active" onClick={() => this.setState({showCreateIsolation: !this.state.showCreateIsolation})}>Create Isolation</button> {" | "}
                             <button className="btn btn-secondary active" onClick={() => this.setState({showCreateQuarantine: !this.state.showCreateQuarantine})}>Create Quarantine</button> {" | "}

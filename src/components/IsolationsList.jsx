@@ -1,4 +1,5 @@
 import React from 'react'; 
+import { Redirect } from 'react-router-dom'; 
 import IsolationShow from './IsolationShow'
 
 class IsolationsList extends React.Component {
@@ -21,6 +22,9 @@ class IsolationsList extends React.Component {
     }
 
     render() {
+        if (!localStorage.token) {
+            return <Redirect to="/login" />
+        }
         const isolationsList = this.state.isolations.map(isolation => {
             return (
                 <IsolationShow key={isolation.id} isolation={isolation} showDetails={true}  /> 
