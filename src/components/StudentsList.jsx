@@ -43,10 +43,14 @@ class StudentsList extends React.Component {
             )
         })
         return (
-            <div> 
-                <label htmlFor="search">Search by Name</label>
-                <input type="text" className="form-control" name="search" placeholder="Search..." value={this.state.search} onChange={this.handleChange} />
-                {studentsList}
+            <div className="container"> 
+                <div className="row">
+                    <div className="col">
+                        <label htmlFor="search">Search by Name</label>
+                        <input type="text" className="form-control" name="search" placeholder="Search..." value={this.state.search} onChange={this.handleChange} />
+                        {studentsList}
+                    </div>
+                </div>
             </div>
         )
     }

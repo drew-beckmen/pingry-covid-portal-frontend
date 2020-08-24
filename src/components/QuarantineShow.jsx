@@ -15,9 +15,11 @@ class QuarantineShow extends React.Component {
         
         this.editBtn = ""
         this.deleteBtn = ""
+        this.convertBtn = ""
         if (this.props.showButton) {
             this.editBtn = <button className="btn btn-warning active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Quarantine</button>
             this.deleteBtn = <button className="btn btn-danger active" onClick={this.handleClick}>Delete Quarantine</button>
+            this.convertBtn = <button className="btn btn-primary active" onClick={this.convertToIsolation}>Presumed or Confirmed Positive? Convert to Isolation</button>
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -38,7 +40,13 @@ class QuarantineShow extends React.Component {
         this.setState({quarantine: oldState}, () => console.log(this.state.quarantine))
     }
 
-    handleClick = (e) => {
+    convertToIsolation = (e) => {
+        this.handleClick()
+        document.getElementById("create-isolation").click()
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+
+    handleClick = () => {
         //remove from the DOM using parent function in this.props.destroy
         this.props.destroy(this.state.quarantine.id, "quarantines")
     }
@@ -62,7 +70,7 @@ class QuarantineShow extends React.Component {
     
     render() {
         const afterTwoWeeks = new Date(Date.parse(this.state.quarantine.exposure) + 12096e5)
-        const endDateToDisplay = `${afterTwoWeeks.getMonth()}/${afterTwoWeeks.getDate()}/${afterTwoWeeks.getYear()}`
+        const endDateToDisplay = `${afterTwoWeeks.getMonth() + 1}/${afterTwoWeeks.getDate()}/${afterTwoWeeks.getFullYear()}`
         return (
             <div className="card">
                 <div className="card-body">
@@ -72,7 +80,8 @@ class QuarantineShow extends React.Component {
                     <p className="card-text">Final Day of Quarantine if No Conversion to Isolation: {endDateToDisplay}</p>
                     { this.btn || "" }
                     {this.editBtn || ""}{" | "}
-                    { this.deleteBtn || ""} 
+                    { this.deleteBtn || ""} {" | "}
+                    { this.convertBtn }
                     {this.state.showEdit && <EditQuarantine info={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>}
                 </div>
             </div>

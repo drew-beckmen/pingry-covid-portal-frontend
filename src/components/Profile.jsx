@@ -34,12 +34,15 @@ class Profile extends React.Component {
         }
         console.log(this.props)
         return (
-            <div> 
-                <h1>Welcome, {localStorage.name}!</h1>
-                <h3>Please click the button below to change your password: </h3>
-                <button className="btn btn-secondary" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Change Password</button>
-                { this.state.showEdit && <PasswordForm handleSubmit={this.handleSubmit} />}
-                {/* {this.state.showEdit && <ChangePassword info={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>} */}
+            <div className="container"> 
+                <div className="row">
+                    <div className="col">
+                        <h1>Welcome, {localStorage.name}!</h1>
+                        <h3>Please click the button below to change your password: </h3>
+                        <button className="btn btn-secondary" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Change Password</button>
+                        { this.state.showEdit && <PasswordForm handleSubmit={this.handleSubmit} />}
+                    </div>
+                </div>
             </div>
         )
     }
