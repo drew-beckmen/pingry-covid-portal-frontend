@@ -74,9 +74,9 @@ class App extends React.Component {
                 <NavBar action={navbarProp}/>
                 <Switch>
                     <Route exact path="/login" render={ this.renderForm } />
-                    <Route exact path="/students" render={this.renderStudents} />
-                    <Route exact path="/students/:id" component={ShowStudent} />
-                    <Route exact path="/students/:id/edit" component={EditStudent} />
+                    <Route exact path="/people" render={this.renderStudents} />
+                    <Route exact path="/people/:id" component={ShowStudent} />
+                    <Route exact path="/people/:id/edit" component={EditStudent} />
                     <Route exact path="/isolations" component={IsolationsList} />
                     <Route path="/isolations/:id" component={IsolationShow} />
                     <Route path="/quarantines" component={QuarantineList} />

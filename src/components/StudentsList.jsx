@@ -9,7 +9,9 @@ class StudentsList extends React.Component {
         super(props); 
         this.state = {
             students: [], 
-            search: ""
+            search: "", 
+            showTeachersOnly: false, 
+            showStudentsOnly: false 
         }
     }
 
@@ -28,12 +30,31 @@ class StudentsList extends React.Component {
         this.setState({[name]: value})
     }
 
+    handleStudentChange = (e) => {
+        this.setState({showStudentsOnly: !this.state.showStudentsOnly})
+    }
+
+    handleTeacherChange = (e) => {
+        this.setState({showTeachersOnly: !this.state.showTeachersOnly})
+    }
+
     render() {
         if (!localStorage.token) {
             return <Redirect to="/login" />
         }
 
-        const listToMap = this.state.students.filter(student => {
+        let listToMap; 
+        if (this.state.showStudentsOnly) {
+            listToMap = this.state.students.filter(student => !student.teacher)
+        }
+        else if (this.state.showTeachersOnly) {
+            listToMap = this.state.students.filter(student => student.teacher)
+        }
+        else {
+            listToMap = this.state.students
+        }
+
+        listToMap = listToMap.filter(student => {
             let fullName = student.first_name + " " + student.last_name 
             return fullName.includes(this.state.search)
         })
@@ -48,6 +69,13 @@ class StudentsList extends React.Component {
                     <div className="col">
                         <label htmlFor="search">Search by Name</label>
                         <input type="text" className="form-control" name="search" placeholder="Search..." value={this.state.search} onChange={this.handleChange} />
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" onChange={this.handleStudentChange} disabled={this.state.showTeachersOnly}/>
+                            <label class="form-check-label">See Students Only</label>
+                            <br/>
+                            <input className="form-check-input" type="checkbox" onChange={this.handleTeacherChange} disabled={this.state.showStudentsOnly}/>
+                            <label className="form-check-label">See Teachers Only</label>
+                        </div>
                         {studentsList}
                     </div>
                 </div>

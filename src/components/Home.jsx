@@ -43,7 +43,7 @@ class Home extends React.Component {
                                 
                         </div>
                         <div className="col">
-                        <h2><img src="https://image.flaticon.com/icons/png/512/121/121731.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> Students Out Due to COVID:</h2>
+                        <h2><img src="https://image.flaticon.com/icons/png/512/121/121731.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> People Out Due to COVID:</h2>
                         < hr/>
                         <BarChart 
                         width={500}
@@ -60,13 +60,101 @@ class Home extends React.Component {
                         </div>
                     </div>
                     <br/>
-                    <h3><img src="https://static.thenounproject.com/png/1853608-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Data By Campus:</h3>
+                    <h3><img src="https://image.flaticon.com/icons/png/512/32/32441.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Cohort 1 Data:</h3>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Metric</th>
+                                <th scope="col">Short Hills</th>
+                                <th scope="col">Basking Ridge</th>
+                                <th scope="col">Overall</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Active Isolations</th>
+                                <td>{this.state.dataToDisplay.cohort1ActiveIsolationsShortHills}</td>
+                                <td>{this.state.dataToDisplay.cohort1ActiveIsolationsBaskingRidge}</td>
+                                <td>{this.state.dataToDisplay.cohort1ActiveIsolationsShortHills + this.state.dataToDisplay.cohort1ActiveIsolationsBaskingRidge}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Active Quarantines</th>
+                                <td>{this.state.dataToDisplay.cohort1ActiveQuarantinesShortHills}</td>
+                                <td>{this.state.dataToDisplay.cohort1ActiveQuarantinesBaskingRidge}</td>
+                                <td>{this.state.dataToDisplay.cohort1ActiveQuarantinesShortHills + this.state.dataToDisplay.cohort1ActiveQuarantinesBaskingRidge}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">New Quarantines Last 72 Hours</th>
+                                <td>{this.state.dataToDisplay.cohort1NewQuarantinesShortHills}</td>
+                                <td>{this.state.dataToDisplay.cohort1NewQuarantinesBaskingRidge}</td>
+                                <td>{this.state.dataToDisplay.cohort1NewQuarantinesShortHills + this.state.dataToDisplay.cohort1NewQuarantinesBaskingRidge}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">New Isolations Last 72 Hours</th>
+                                <td>{this.state.dataToDisplay.cohort1NewIsolationsShortHills}</td>
+                                <td>{this.state.dataToDisplay.cohort1NewIsolationsBaskingRidge}</td>
+                                <td>{this.state.dataToDisplay.cohort1NewIsolationsShortHills + this.state.dataToDisplay.cohort1NewIsolationsBaskingRidge}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Number of Students</th>
+                                <td>{this.state.dataToDisplay.cohort1ShortHills}</td>
+                                <td>{this.state.dataToDisplay.cohort1BaskingRidge}</td>
+                                <td>{this.state.dataToDisplay.cohort1ShortHills + this.state.dataToDisplay.cohort1BaskingRidge}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3><img src="https://image.flaticon.com/icons/png/512/32/32441.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Cohort 2 Data:</h3>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Metric</th>
+                                <th scope="col">Short Hills</th>
+                                <th scope="col">Basking Ridge</th>
+                                <th scope="col">Overall</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Active Isolations</th>
+                                <td>{this.state.dataToDisplay.cohort2ActiveIsolationsShortHills}</td>
+                                <td>{this.state.dataToDisplay.cohort2ActiveIsolationsBaskingRidge}</td>
+                                <td>{this.state.dataToDisplay.cohort2ActiveIsolationsShortHills + this.state.dataToDisplay.cohort2ActiveIsolationsBaskingRidge}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Active Quarantines</th>
+                                <td>{this.state.dataToDisplay.cohort2ActiveQuarantinesShortHills}</td>
+                                <td>{this.state.dataToDisplay.cohort2ActiveQuarantinesBaskingRidge}</td>
+                                <td>{this.state.dataToDisplay.cohort2ActiveQuarantinesShortHills + this.state.dataToDisplay.cohort2ActiveQuarantinesBaskingRidge}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">New Quarantines Last 72 Hours</th>
+                                <td>{this.state.dataToDisplay.cohort2NewQuarantinesShortHills}</td>
+                                <td>{this.state.dataToDisplay.cohort2NewQuarantinesBaskingRidge}</td>
+                                <td>{this.state.dataToDisplay.cohort2NewQuarantinesShortHills + this.state.dataToDisplay.cohort2NewQuarantinesBaskingRidge}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">New Isolations Last 72 Hours</th>
+                                <td>{this.state.dataToDisplay.cohort2NewIsolationsShortHills}</td>
+                                <td>{this.state.dataToDisplay.cohort2NewIsolationsBaskingRidge}</td>
+                                <td>{this.state.dataToDisplay.cohort2NewIsolationsShortHills + this.state.dataToDisplay.cohort2NewIsolationsBaskingRidge}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Number of Students</th>
+                                <td>{this.state.dataToDisplay.cohort2ShortHills}</td>
+                                <td>{this.state.dataToDisplay.cohort2BaskingRidge}</td>
+                                <td>{this.state.dataToDisplay.cohort2ShortHills + this.state.dataToDisplay.cohort2BaskingRidge}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3><img src="https://static.thenounproject.com/png/1853608-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Overall Student Data:</h3>
                     <table className="table">
                                 <thead>
-                                    <th scope="col">Metric</th>
-                                    <th scope="col">Short Hills</th>
-                                    <th scope="col">Basking Ridge</th>
-                                    <th scope="col">Overall</th>
+                                    <tr>
+                                        <th scope="col">Metric</th>
+                                        <th scope="col">Short Hills</th>
+                                        <th scope="col">Basking Ridge</th>
+                                        <th scope="col">Overall</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -116,6 +204,37 @@ class Home extends React.Component {
                                     <td>{this.state.dataToDisplay.studentsShortHills}</td>
                                     <td>{this.state.dataToDisplay.studentsBaskingRidge}</td>
                                     <td>{this.state.dataToDisplay.studentsShortHills + this.state.dataToDisplay.studentsBaskingRidge}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h3><img src="https://static.thenounproject.com/png/1248170-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Faculty and Staff Data:</h3>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Metric</th>
+                                        <th scope="col">Short Hills</th>
+                                        <th scope="col">Basking Ridge</th>
+                                        <th scope="col">Overall</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Active Isolations</th>
+                                        <td>{this.state.dataToDisplay.shortHillsAdultsActiveIsolations}</td>
+                                        <td>{this.state.dataToDisplay.baskingRidgeAdultsActiveIsolations}</td>
+                                        <td>{this.state.dataToDisplay.shortHillsAdultsActiveIsolations + this.state.dataToDisplay.baskingRidgeAdultsActiveIsolations}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Active Quarantines</th>
+                                        <td>{this.state.dataToDisplay.shortHillsAdultsActiveQuarantines}</td>
+                                        <td>{this.state.dataToDisplay.baskingRidgeAdultsActiveQuarantines}</td>
+                                        <td>{this.state.dataToDisplay.shortHillsAdultsActiveQuarantines + this.state.dataToDisplay.baskingRidgeAdultsActiveQuarantines}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Number of Adults</th>
+                                        <td>{this.state.dataToDisplay.shortHillsAdults}</td>
+                                        <td>{this.state.dataToDisplay.baskingRidgeAdults}</td>
+                                        <td>{this.state.dataToDisplay.shortHillsAdults + this.state.dataToDisplay.baskingRidgeAdults}</td>
                                     </tr>
                                 </tbody>
                             </table>

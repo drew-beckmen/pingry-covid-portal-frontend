@@ -95,9 +95,10 @@ class ShowStudent extends React.Component {
                     <div key={this.state.student.id} className="card">
                         <div className="card-body">
                             <h5 className="card-title">Name: {this.state.student.first_name + " " + this.state.student.last_name}</h5>
-                            <p className="card-text">Grade: {this.state.student.grade}</p>
+                            {this.state.student.grade && <p className="card-text">{this.state.student.grade === 0 ? "Grade: Kindergarten" : `Grade: ${this.state.student.grade}`}</p>}
+                            {this.state.student.grade === null && <p>Faculty or Staff Member</p>}
                             <p className="card-text">Campus: {this.state.student.campus}</p>
-                            <p className="card-text">Cohort: {this.state.student.cohort}</p>
+                            {this.state.student.cohort && <p className="card-text">Cohort: {this.state.student.cohort}</p>}
                             {" | "} <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Student</button> {" | "}
                             <button id="create-isolation" className="btn btn-secondary active" onClick={() => this.setState({showCreateIsolation: !this.state.showCreateIsolation})}>Create Isolation</button> {" | "}
                             <button className="btn btn-secondary active" onClick={() => this.setState({showCreateQuarantine: !this.state.showCreateQuarantine})}>Create Quarantine</button> {" | "}

@@ -45,7 +45,6 @@ class QuarantinesList extends React.Component {
             )
         })
         const numberActive = this.state.quarantines.reduce((acc, val) => {
-            console.log(acc)
             if (!val.completed) {
                 return acc += 1
             }
@@ -56,7 +55,7 @@ class QuarantinesList extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div class="col">
+                    <div className="col">
                         <h3>Quarantine Stats At Pingry</h3>
                             <table className="table">
                                 <thead>
@@ -78,7 +77,7 @@ class QuarantinesList extends React.Component {
                             </table>
                             <div className="form-check">
                                 <input className="form-check-input" type="checkbox" onChange={this.handleChange}/>
-                                <label class="form-check-label">Sort Newest to Oldest</label>
+                                <label className="form-check-label">Sort Newest to Oldest</label>
                             </div>
                             <hr/>
                         <h3>All Quarantines At Pingry</h3>

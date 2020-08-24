@@ -12,6 +12,8 @@ const NavBar = (props) => {
     else {
         logout = <button className="btn btn-link" onClick={() => {
             localStorage.removeItem('token')
+            localStorage.removeItem('name')
+            localStorage.removeItem('user_id')
             props.history.push("/")
         }}>{props.action}</button>
     }
@@ -22,7 +24,7 @@ const NavBar = (props) => {
                 <img src="https://media.glassdoor.com/sqll/1412465/the-pingry-school-squarelogo-1551257974128.png" width="30" height="30" alt="" />
                 Pingry Anywhere
             </a>
-            <a className="navbar-nav" href="/students">Students</a>
+            <a className="navbar-nav" href="/people">All People</a>
             <a className="navbar-nav" href="/quarantines">Quarantines</a>
             <a className="navbar-nav" href="/isolations">Isolations</a>
             <a className="navbar-nav" href="/profile">Profile</a>
