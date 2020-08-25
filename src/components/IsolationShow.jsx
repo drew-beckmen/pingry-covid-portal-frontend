@@ -12,7 +12,7 @@ class IsolationShow extends React.Component {
     
         this.btn = "" 
         if (this.props.showDetails) {
-            this.btn = <a href={`/students/${this.props.isolation.student_id}`} className="btn btn-secondary active" role="button" aria-pressed="true">See Student Details</a>
+            this.btn = <a href={`/people/${this.props.isolation.student_id}`} className="btn btn-secondary active" role="button" aria-pressed="true">See Person Details</a>
         }
         
         this.editBtn = ""

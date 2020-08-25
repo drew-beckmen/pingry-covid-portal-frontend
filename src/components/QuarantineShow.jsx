@@ -6,23 +6,31 @@ class QuarantineShow extends React.Component {
         super(props); 
         this.state = {
             quarantine: this.props.quarantine, 
-            showEdit: false
+            showEdit: false, 
+            showDetails: this.props.showDetails || false, 
+            showButton: this.props.showButton || false 
         }
         this.btn = ""
-        if (this.props.showDetails) {
-            this.btn = <a href={`/students/${this.props.quarantine.student_id}`} className="btn btn-secondary active" role="button" aria-pressed="true">See Student Details</a>
+        if (this.state.showDetails) {
+            this.btn = <a href={`/people/${this.props.quarantine.student_id}`} className="btn btn-secondary active" role="button" aria-pressed="true">See Person Details</a>
         }
         
         this.editBtn = ""
         this.deleteBtn = ""
         this.convertBtn = ""
-        if (this.props.showButton) {
-            this.editBtn = <button className="btn btn-warning active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Quarantine</button>
-            this.deleteBtn = <button className="btn btn-danger active" onClick={this.handleClick}>Delete Quarantine</button>
-            this.convertBtn = <button className="btn btn-primary active" onClick={this.convertToIsolation}>Presumed or Confirmed Positive? Convert to Isolation</button>
+        if (this.state.showButton) {
+            this.editBtn = <button style={{"margin": "5px"}} className="btn btn-warning active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Quarantine</button>
+            this.deleteBtn = <button style={{"margin": "5px"}} className="btn btn-danger active" onClick={this.handleClick}>Delete Quarantine</button>
+            this.convertBtn = <button style={{"margin": "5px"}} className="btn btn-primary active" onClick={this.convertToIsolation}>Presumed or Confirmed Positive? Convert to Isolation</button>
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    componentDidMount() {
+        if (this.props.quarantine.converted_to_isolation) {
+            this.setState({showDetails: false, showButton: false})
+        }
     }
 
     handleChange = (e) => {
@@ -41,7 +49,9 @@ class QuarantineShow extends React.Component {
     }
 
     convertToIsolation = (e) => {
-        this.handleClick()
+        let oldState = {...this.state.quarantine}
+        oldState["converted_to_isolation"] = true 
+        this.setState({quarantine: oldState, showButton: false, showDetails: false}, () => {this.handleSubmit(e)})
         document.getElementById("create-isolation").click()
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
@@ -63,7 +73,8 @@ class QuarantineShow extends React.Component {
             body: JSON.stringify(this.state.quarantine)
         })
         .then(resp => resp.json())
-        .then(this.setState({showEdit: false}))
+        .then(console.log)
+        // .then(this.setState({showEdit: false}))
     }
 
 
@@ -78,10 +89,11 @@ class QuarantineShow extends React.Component {
                     <p className="card-text">{this.state.quarantine.completed ? "Quarantine Completed" : "Quarantine Incomplete"}</p>
                     <p className="card-text">Notes: {this.state.quarantine.notes ? this.state.quarantine.notes : "No Notes Added"}</p>
                     <p className="card-text">Final Day of Quarantine if No Conversion to Isolation: {endDateToDisplay}</p>
-                    { this.btn || "" }
-                    {this.editBtn || ""}{" | "}
-                    { this.deleteBtn || ""} {" | "}
-                    { this.convertBtn }
+                    <p className="card-text">{this.state.quarantine.converted_to_isolation ? "CONVERTED TO ISOLATION" : ""}</p>
+                    { this.state.showDetails && this.btn }
+                    { this.state.showButton && this.editBtn}
+                    { this.state.showButton && this.deleteBtn}
+                    { this.state.showButton && this.convertBtn }
                     {this.state.showEdit && <EditQuarantine info={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>}
                 </div>
             </div>

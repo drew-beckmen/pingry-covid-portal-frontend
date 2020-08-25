@@ -74,7 +74,7 @@ class StudentsList extends React.Component {
                             <label class="form-check-label">See Students Only</label>
                             <br/>
                             <input className="form-check-input" type="checkbox" onChange={this.handleTeacherChange} disabled={this.state.showStudentsOnly}/>
-                            <label className="form-check-label">See Teachers Only</label>
+                            <label className="form-check-label">See Adults Only</label>
                         </div>
                         {studentsList}
                     </div>

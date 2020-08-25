@@ -89,14 +89,16 @@ class ShowStudent extends React.Component {
             const quarantinesList = this.getQuarantines().map(quarantine =>
                 <QuarantineShow key={quarantine.id} quarantine={quarantine} showButton={true} destroy={this.handleDestroy}/>
             )
+            // { debugger }
 
             return (
                 <div>
                     <div key={this.state.student.id} className="card">
                         <div className="card-body">
                             <h5 className="card-title">Name: {this.state.student.first_name + " " + this.state.student.last_name}</h5>
-                            {this.state.student.grade && <p className="card-text">{this.state.student.grade === 0 ? "Grade: Kindergarten" : `Grade: ${this.state.student.grade}`}</p>}
+                            {this.state.student.grade === 0 && <p className="card-text">{"Grade: Kindergarten"}</p>}
                             {this.state.student.grade === null && <p>Faculty or Staff Member</p>}
+                            {this.state.student.grade > 0 && <p>Grade: {this.state.student.grade}</p>}
                             <p className="card-text">Campus: {this.state.student.campus}</p>
                             {this.state.student.cohort && <p className="card-text">Cohort: {this.state.student.cohort}</p>}
                             {" | "} <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Student</button> {" | "}
