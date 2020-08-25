@@ -51,9 +51,11 @@ class QuarantineShow extends React.Component {
     convertToIsolation = (e) => {
         let oldState = {...this.state.quarantine}
         oldState["converted_to_isolation"] = true 
+        oldState["completed"] = true 
         this.setState({quarantine: oldState, showButton: false, showDetails: false}, () => {this.handleSubmit(e)})
         document.getElementById("create-isolation").click()
         document.body.scrollTop = document.documentElement.scrollTop = 0;
+        alert("Please enter the relevant information for the isolation")
     }
 
     handleClick = () => {
@@ -73,8 +75,7 @@ class QuarantineShow extends React.Component {
             body: JSON.stringify(this.state.quarantine)
         })
         .then(resp => resp.json())
-        .then(console.log)
-        // .then(this.setState({showEdit: false}))
+        .then(this.setState({showEdit: false}))
     }
 
 

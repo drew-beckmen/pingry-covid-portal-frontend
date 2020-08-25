@@ -9,7 +9,8 @@ class QuarantinesList extends React.Component {
         super(props); 
         this.state = {
             quarantines: [], 
-            sortNewest: false 
+            sortNewest: false, 
+            showOnlyActive: false 
         }
     }
 
@@ -24,7 +25,8 @@ class QuarantinesList extends React.Component {
     }
 
     handleChange = (e) => {
-        this.setState({sortNewest: !this.state.sortNewest})
+        const key = e.target.name 
+        this.setState({[key]: !this.state[key]})
     }
 
     render() {
@@ -39,19 +41,23 @@ class QuarantinesList extends React.Component {
                 return dateB-dateA
             })
         }
+
+        if (this.state.showOnlyActive) {
+            quarantinesList = quarantinesList.filter(q => !q.completed)
+        }
         quarantinesList = quarantinesList.map(quarantine => {
             return (
                 <QuarantineShow key={quarantine.id} quarantine={quarantine} showDetails={true} /> 
             )
         })
+
+        const quarantinesConverted = [...this.state.quarantines].filter(q => q.converted_to_isolation).length 
         const numberActive = this.state.quarantines.reduce((acc, val) => {
             if (!val.completed) {
                 return acc += 1
-            }
-            else {
-                return acc += 0 
-            }
+            } else {return acc + 0}
         }, 0)
+
         return (
             <div className="container">
                 <div className="row">
@@ -66,18 +72,25 @@ class QuarantinesList extends React.Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">Total Quarantines (with Historical Data)</th>
-                                        <td>{quarantinesList.length}</td>
+                                        <th scope="row">Total Quarantines (Active + Completed)</th>
+                                        <td>{quarantinesList.length - quarantinesConverted}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Total Active Quarantines</th>
                                         <td>{numberActive}</td>
                                     </tr>
+                                    <tr>
+                                        <th scope="row">Quarantines Converted to Isolations</th>
+                                        <td>{quarantinesConverted}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <div className="form-check">
-                                <input className="form-check-input" type="checkbox" onChange={this.handleChange}/>
+                                <input className="form-check-input" name="sortNewest" type="checkbox" onChange={this.handleChange}/>
                                 <label className="form-check-label">Sort Newest to Oldest</label>
+                                <br/>
+                                <input className="form-check-input" name="showOnlyActive" type="checkbox" onChange={this.handleChange}/>
+                                <label className="form-check-label">Show Only Active Quarantines</label>
                             </div>
                             <hr/>
                         <h3>All Quarantines At Pingry</h3>

@@ -8,7 +8,8 @@ class IsolationsList extends React.Component {
         super(props); 
         this.state = {
             isolations: [], 
-            sortNewest: false 
+            sortNewest: false, 
+            showOnlyActive: false 
         }
     }
 
@@ -23,7 +24,8 @@ class IsolationsList extends React.Component {
     }
 
     handleChange = (e) => {
-        this.setState({sortNewest: !this.state.sortNewest})
+        const key = e.target.name 
+        this.setState({[key]: !this.state[key]})
     }
     
     render() {
@@ -38,18 +40,17 @@ class IsolationsList extends React.Component {
                 return dateB-dateA
             })
         }
+        if (this.state.showOnlyActive) {
+            isolationsList = isolationsList.filter(q => !q.completed)
+        }
         isolationsList = isolationsList.map(isolation => {
             return (
                 <IsolationShow key={isolation.id} isolation={isolation} showDetails={true}  /> 
             )
         })
         const numberActive = this.state.isolations.reduce((acc, val) => {
-            if (!val.completed) {
-                return acc += 1
-            }
-            else {
-                return acc += 0 
-            }
+            if (!val.completed) { return acc += 1 }
+            else { return acc += 0}
         }, 0)
         return (
             <div className="container">
@@ -65,7 +66,7 @@ class IsolationsList extends React.Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">Total Isolations (with Historical Data)</th>
+                                        <th scope="row">Total Isolations (Active + Completed)</th>
                                         <td>{isolationsList.length}</td>
                                     </tr>
                                     <tr>
@@ -75,8 +76,11 @@ class IsolationsList extends React.Component {
                                 </tbody>
                             </table>
                         <div className="form-check">
-                            <input className="form-check-input" type="checkbox" onChange={this.handleChange}/>
-                            <label class="form-check-label">Sort Newest to Oldest</label>
+                        <input className="form-check-input" name="sortNewest" type="checkbox" onChange={this.handleChange}/>
+                                <label className="form-check-label">Sort Newest to Oldest</label>
+                                <br/>
+                                <input className="form-check-input" name="showOnlyActive" type="checkbox" onChange={this.handleChange}/>
+                                <label className="form-check-label">Show Only Active Isolations</label>
                         </div>
                         <hr/>
                         {isolationsList}
