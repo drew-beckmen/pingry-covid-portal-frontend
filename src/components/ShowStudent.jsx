@@ -4,6 +4,7 @@ import QuarantineShow from './QuarantineShow'
 import EditStudent from './EditStudent';
 import NewIsolationForm from './NewIsolationForm';
 import NewQuarantineForm from './NewQuarantineForm'
+import IsolationContactFrom from './IsolationContactForm';
 
 
 class ShowStudent extends React.Component {
@@ -11,9 +12,11 @@ class ShowStudent extends React.Component {
         super(props); 
         this.state = {
             student: {}, 
+            allOtherStudents: [], 
             showEdit: false, 
             showCreateQuarantine: false, 
-            showCreateIsolation: false 
+            showCreateIsolation: false, 
+            showContactForm: false  
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -65,12 +68,24 @@ class ShowStudent extends React.Component {
         })
         .then(resp => resp.json())
         .then(obj => this.setState({student: obj}))
+        
+        // this is redundant, can you fix it later
+        fetch(`http://localhost:3000/api/v1/studentinfo`, {
+            headers: {
+                "Authorization": `bearer ${localStorage.token}`
+            }
+        })
+        .then(resp => resp.json())
+        .then(obj => this.setState({allOtherStudents: obj}))
     }
 
     addOneItem(itm, key) {
         delete itm.student
         this.state.student[key].push(itm)
         key === "isolations" ? this.setState({showCreateIsolation: false}) : this.setState({showCreateQuarantine: false})
+
+        //handle adding new contacts - with a separate component
+        if (key === "isolations") {this.setState({showContactForm: true})}
     }
 
     //handle submit for forms on both isolations and quarantines
@@ -78,6 +93,33 @@ class ShowStudent extends React.Component {
     getIsolations = () => this.state.student.isolations
     getQuarantines = () => this.state.student.quarantines
 
+
+    handleSubmit = (e, whatToPost) => {
+        e.preventDefault(); 
+        const objectsToPost = whatToPost.map(c => {
+            return (
+                {quarantine: {
+                    exposure: new Date(), 
+                    converted_to_isolation: false, 
+                    completed: false, 
+                    student_id: c.value, 
+                    notes: `This quarantine is linked to ${this.state.student.first_name} ${this.state.student.last_name}'s isolation. It was created because this student came into contact with  ${this.state.student.first_name} ${this.state.student.last_name}, a presumed or confirmed positive case of COVID-19`
+                }}
+            )
+        })
+        objectsToPost.forEach(obj => {
+            fetch("http://localhost:3000/api/v1/quarantines", {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json", 
+                Accept: "application/json", 
+                "Authorization": `bearer ${localStorage.token}`
+            }, 
+            body: JSON.stringify(obj)
+            })
+        })
+        this.setState({showContactForm: false})
+    }
 
     render() {
         if (this.state.student.id) {
@@ -106,6 +148,7 @@ class ShowStudent extends React.Component {
                             <button className="btn btn-secondary active" onClick={() => this.setState({showCreateQuarantine: !this.state.showCreateQuarantine})}>Create Quarantine</button> {" | "}
                             {this.state.showEdit && <EditStudent info={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>}
                             {this.state.showCreateIsolation && <NewIsolationForm handleChange={this.handleChange} addOneIsolation={this.addOneItem} studentId={this.state.student.id}/>}
+                            {this.state.showContactForm && <IsolationContactFrom list={this.state.allOtherStudents} currentStudent={this.state.student.first_name + " " + this.state.student.last_name} handleSubmit={this.handleSubmit} />}
                             {this.state.showCreateQuarantine && <NewQuarantineForm handleChange={this.handleChange} addOneQuarantine={this.addOneItem} studentId={this.state.student.id}/>}
                         </div>
                     </div>
