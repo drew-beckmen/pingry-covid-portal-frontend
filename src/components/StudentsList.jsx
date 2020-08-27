@@ -16,7 +16,7 @@ class StudentsList extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:3000/api/v1/students", {
+        fetch("http://localhost:3000/api/v1/student_details", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }

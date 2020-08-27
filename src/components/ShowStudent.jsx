@@ -146,6 +146,7 @@ class ShowStudent extends React.Component {
                             {" | "} <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Student</button> {" | "}
                             <button id="create-isolation" className="btn btn-secondary active" onClick={() => this.setState({showCreateIsolation: !this.state.showCreateIsolation})}>Create Isolation</button> {" | "}
                             <button className="btn btn-secondary active" onClick={() => this.setState({showCreateQuarantine: !this.state.showCreateQuarantine})}>Create Quarantine</button> {" | "}
+                            <button className="btn btn-secondary active" onClick={() => this.setState({showContactForm: !this.state.showContactForm})} disabled={isolationsList.length === 0}>Add Contacts</button> {" | "}
                             {this.state.showEdit && <EditStudent info={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>}
                             {this.state.showCreateIsolation && <NewIsolationForm handleChange={this.handleChange} addOneIsolation={this.addOneItem} studentId={this.state.student.id}/>}
                             {this.state.showContactForm && <IsolationContactFrom list={this.state.allOtherStudents} currentStudent={this.state.student.first_name + " " + this.state.student.last_name} handleSubmit={this.handleSubmit} />}
