@@ -28,7 +28,15 @@ class Home extends React.Component {
         
         if (this.state.dataToDisplay.length === 0) {
             return (
-                <h1>Still Loading...</h1>
+                <div className="jumbotron">
+                    <h1 className="display-4">Welcome to Pingry's Internal COVID Tracking App!</h1>
+                    <p className="lead">This app will provide live stats on the spread of coronavirus within the Pingry community. It is also where you will log and update  any isolations or quarantines for Pingry community members.</p>
+                    <hr className="my-4" />
+                    <p>Please contact <a href="mailto:drew.beckmen@yale.edu">Drew Beckmen</a> with questions or issues with the platform.</p>
+                    <div className="text-center">
+                        <img src="https://static1.squarespace.com/static/55130f2fe4b09ee1385732c1/t/59ca4ca7d7bdce066ff35dc2/1506430134033/Screen+Shot+2017-09-15+at+4.16.59+PM.png?format=1500w" className="rounded" alt="ground" />
+                    </div>
+                </div>
             )
         }
         else {
