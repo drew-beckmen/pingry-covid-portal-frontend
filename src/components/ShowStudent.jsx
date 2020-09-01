@@ -61,7 +61,7 @@ class ShowStudent extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`https://130.156.110.132/api/v1/students/${this.props.match.params.id}`, {
+        fetch(`http://130.156.110.132/api/v1/students/${this.props.match.params.id}`, {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
@@ -70,7 +70,7 @@ class ShowStudent extends React.Component {
         .then(obj => this.setState({student: obj}))
         
         // this is redundant, can you fix it later
-        fetch(`https://130.156.110.132/api/v1/studentinfo`, {
+        fetch(`http://130.156.110.132/api/v1/studentinfo`, {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
@@ -108,7 +108,7 @@ class ShowStudent extends React.Component {
             )
         })
         objectsToPost.forEach(obj => {
-            fetch("https://130.156.110.132/api/v1/quarantines", {
+            fetch("http://130.156.110.132/api/v1/quarantines", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json", 

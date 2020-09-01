@@ -12,7 +12,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://130.156.110.132/api/v1/summarystats", {
+        fetch("http://130.156.110.132/api/v1/summarystats", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }

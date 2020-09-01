@@ -14,7 +14,7 @@ class IsolationsList extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://130.156.110.132/api/v1/isolations", {
+        fetch("http://130.156.110.132/api/v1/isolations", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }

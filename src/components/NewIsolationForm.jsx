@@ -14,7 +14,7 @@ class NewIsolationForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch("https://130.156.110.132/api/v1/isolations", {
+        fetch("http://130.156.110.132/api/v1/isolations", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json", 

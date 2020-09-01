@@ -15,7 +15,7 @@ class QuarantinesList extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://130.156.110.132/api/v1/quarantines", {
+        fetch("://130.156.110.132/api/v1/quarantines", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }

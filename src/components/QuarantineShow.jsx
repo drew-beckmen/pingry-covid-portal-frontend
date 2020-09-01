@@ -65,7 +65,7 @@ class QuarantineShow extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch(`https://130.156.110.132/api/v1/quarantines/${this.state.quarantine.id}`, {
+        fetch(`http://130.156.110.132/api/v1/quarantines/${this.state.quarantine.id}`, {
             method: "PATCH", 
             headers: {
                 "Content-Type": "application/json", 
