@@ -18,7 +18,7 @@ class NewQuarantineForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch("http://localhost:3000/api/v1/quarantines", {
+        fetch("http://130.156.110.132/api/v1/quarantines", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json", 

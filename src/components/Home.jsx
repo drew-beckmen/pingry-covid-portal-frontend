@@ -12,7 +12,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:3000/api/v1/summarystats", {
+        fetch("http://130.156.110.132/api/v1/summarystats", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
@@ -31,6 +31,7 @@ class Home extends React.Component {
                 <div className="jumbotron">
                     <h1 className="display-4">Welcome to Pingry's Internal COVID Tracking App!</h1>
                     <p className="lead">This app will provide live stats on the spread of coronavirus within the Pingry community. It is also where you will log and update  any isolations or quarantines for Pingry community members.</p>
+                    <p className="lead">Please wait while the main dashboard loads. It will appear shortly.</p>
                     <hr className="my-4" />
                     <p>Please contact <a href="mailto:drew.beckmen@yale.edu">Drew Beckmen</a> with questions or issues with the platform.</p>
                     <div className="text-center">

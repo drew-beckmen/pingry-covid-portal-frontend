@@ -11,7 +11,7 @@ class Profile extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault() 
         const newPword = e.target[0].value 
-        fetch(`http://localhost:3000/api/v1/users/${localStorage.user_id}`, {
+        fetch(`http://130.156.110.132/api/v1/users/${localStorage.user_id}`, {
             method: "PATCH", 
             headers: {
                 "Content-Type": "application/json", 

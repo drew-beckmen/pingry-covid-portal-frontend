@@ -25,16 +25,18 @@ class LoginForm extends Component {
         let {username, password} = this.state
 
         return (
-        <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-                <h1>{formName}</h1>
-                <label htmlFor="username">Username:</label>
-                <input className="form-control" type="text" autoComplete="off" name="username" value={username} onChange={this.handleChange}/>
-                <label htmlFor="password">Password:</label>
-                <input className="form-control" type="password" autoComplete="off" name="password" value={password} onChange={this.handleChange}/>
-                <input className="form-control" type="submit" value="Submit"/>
-            </div>
-        </form>
+        <div className="container">
+            <form onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                    <h1>{formName}</h1>
+                    <label htmlFor="username">Username:</label>
+                    <input className="form-control" type="text" autoComplete="off" name="username" value={username} onChange={this.handleChange}/>
+                    <label htmlFor="password">Password:</label>
+                    <input className="form-control" type="password" autoComplete="off" name="password" value={password} onChange={this.handleChange}/>
+                    <input className="form-control" type="submit" value="Submit"/>
+                </div>
+            </form>
+        </div>
         );
     }
 

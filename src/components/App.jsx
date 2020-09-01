@@ -1,5 +1,5 @@
 import React from 'react'; 
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom'; 
+import { Switch, Route, withRouter } from 'react-router-dom'; 
 import NavBar from './NavBar'; 
 import LoginForm from './LoginForm'; 
 import StudentsList from './StudentsList';
@@ -37,7 +37,7 @@ class App extends React.Component {
     }
 
     handleLoginSubmit = (userInfo) => {
-        fetch("http://localhost:3000/api/v1/login", {
+        fetch("http://130.156.110.132/api/v1/login", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"

@@ -64,7 +64,7 @@ class IsolationShow extends React.Component {
     //this isn't very DRY, but focus on refactor later.
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch(`http://localhost:3000/api/v1/isolations/${this.state.isolation.id}`, {
+        fetch(`http://130.156.110.132/api/v1/isolations/${this.state.isolation.id}`, {
             method: "PATCH", 
             headers: {
                 "Content-Type": "application/json", 
