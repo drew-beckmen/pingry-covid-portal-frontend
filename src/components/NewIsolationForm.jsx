@@ -14,7 +14,7 @@ class NewIsolationForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch("http://130.156.110.132/api/v1/isolations", {
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/isolations", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json", 

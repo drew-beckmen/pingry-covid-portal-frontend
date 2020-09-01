@@ -16,7 +16,7 @@ class StudentsList extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://130.156.110.132/api/v1/student_details", {
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/student_details", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }

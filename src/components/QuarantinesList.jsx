@@ -15,7 +15,7 @@ class QuarantinesList extends React.Component {
     }
 
     componentDidMount() {
-        fetch("://130.156.110.132/api/v1/quarantines", {
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/quarantines", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
