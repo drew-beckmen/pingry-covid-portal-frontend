@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'; 
+import React from 'react'; 
 import QuarantineShow from './QuarantineShow'
 import { Redirect } from 'react-router-dom'; 
 
@@ -15,7 +15,7 @@ class QuarantinesList extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://130.156.110.132/api/v1/quarantines", {
+        fetch("https://130.156.110.132/api/v1/quarantines", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
