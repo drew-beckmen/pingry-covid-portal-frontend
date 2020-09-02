@@ -66,7 +66,7 @@ class Home extends React.Component {
                             <YAxis />
                             <Legend />
                             <Bar dataKey="students" fill="#8884d8" />
-                            <Bar dataKey="teachers" fill="#40eaed" />
+                            <Bar dataKey="adults" fill="#40eaed" />
                             <Bar dataKey="total" fill="#ba274e" />
                         </BarChart>
                         </div>
@@ -194,7 +194,7 @@ class Home extends React.Component {
                             </tr>
                         </tbody>
                     </table>
-                            <h3><img src="https://static.thenounproject.com/png/1248170-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Faculty and Staff Only:</h3>
+                            <h3><img src="https://static.thenounproject.com/png/1248170-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Adults Only:</h3>
                             <table className="table">
                                 <thead>
                                     <tr>

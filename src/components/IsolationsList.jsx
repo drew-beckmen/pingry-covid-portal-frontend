@@ -33,7 +33,7 @@ class IsolationsList extends React.Component {
             return <Redirect to="/login" />
         }
 
-        if (localStorage.write == "false") {
+        if (localStorage.write === "false") {
             return <Redirect to="/" />
         }
 
