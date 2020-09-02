@@ -47,9 +47,11 @@ class App extends React.Component {
         .then(res => res.json())
         .then(data => {
             if (data.user) {
+                { debugger }
                 localStorage.setItem("user_id", data.user.id)
                 localStorage.setItem("token", data.jwt)
                 localStorage.setItem("name", data.user.username)
+                localStorage.setItem("write", data.user.write)
                 this.setState({user: data.user, token: data.jwt}, () => {
                     this.props.history.push("/")
                 })

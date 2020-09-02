@@ -42,6 +42,9 @@ class StudentsList extends React.Component {
         if (!localStorage.token) {
             return <Redirect to="/login" />
         }
+        if (localStorage.write === "false") {
+            return <Redirect to="/" />
+        }
 
         let listToMap; 
         if (this.state.showStudentsOnly) {

@@ -33,6 +33,11 @@ class QuarantinesList extends React.Component {
         if (!localStorage.token) {
             return <Redirect to="/login" />
         }
+
+        if (localStorage.write === "false") {
+            return <Redirect to="/" />
+        }
+
         let quarantinesList = this.state.quarantines; 
         if (this.state.sortNewest) {
             quarantinesList = [...this.state.quarantines].sort((a, b) => {

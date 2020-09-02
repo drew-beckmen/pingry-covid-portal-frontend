@@ -32,6 +32,11 @@ class IsolationsList extends React.Component {
         if (!localStorage.token) {
             return <Redirect to="/login" />
         }
+
+        if (localStorage.write == "false") {
+            return <Redirect to="/" />
+        }
+
         let isolationsList = this.state.isolations; 
         if (this.state.sortNewest) {
             isolationsList = [...this.state.isolations].sort((a, b) => {

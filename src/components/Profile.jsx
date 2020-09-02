@@ -32,6 +32,7 @@ class Profile extends React.Component {
         if (!localStorage.token) {
             return <Redirect to="/login" />
         }
+
         console.log(this.props)
         return (
             <div className="container"> 
