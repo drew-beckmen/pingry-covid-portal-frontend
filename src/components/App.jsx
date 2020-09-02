@@ -26,11 +26,6 @@ class App extends React.Component {
     
 
     renderForm = (routerProps) => {
-        // { debugger }
-        // if (localStorage.token) {
-        //     localStorage.removeItem("token")
-        //     this.props.history.push("/")
-        // }
         if(routerProps.location.pathname === "/login"){
             return <LoginForm formName="Login to Pingry COVID Portal" handleSubmit={this.handleLoginSubmit}/>
         }
@@ -47,7 +42,6 @@ class App extends React.Component {
         .then(res => res.json())
         .then(data => {
             if (data.user) {
-                { debugger }
                 localStorage.setItem("user_id", data.user.id)
                 localStorage.setItem("token", data.jwt)
                 localStorage.setItem("name", data.user.username)

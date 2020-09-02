@@ -16,7 +16,7 @@ class Profile extends React.Component {
             headers: {
                 "Content-Type": "application/json", 
                 Accept: "application/json", 
-                Authorization: `bearer ${localStorage.token}`
+                "Authorization": `bearer ${localStorage.token}`
             }, 
             body: JSON.stringify({user: {password: newPword}})
         })
