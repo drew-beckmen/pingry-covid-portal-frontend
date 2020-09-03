@@ -25,10 +25,10 @@ const NavBar = (props) => {
                 <img src="https://media.glassdoor.com/sqll/1412465/the-pingry-school-squarelogo-1551257974128.png" width="30" height="30" alt="" />
                 Pingry Anywhere
             </a>
-            <a className="navbar-nav" href="/people">All People</a>
-            <a className="navbar-nav" href="/quarantines">Quarantines</a>
-            <a className="navbar-nav" href="/isolations">Isolations</a>
-            <a className="navbar-nav" href="/profile">Profile</a>
+            <a href="/people"><button className="btn btn-link" disabled={props.permission}>All People</button></a>
+            <a href="/quarantines"><button className="btn btn-link" disabled={props.permission}>Quarantines</button></a>
+            <a href="/isolations"><button className="btn btn-link" disabled={props.permission}>Isolations</button></a>
+            <a href="/profile"><button className="btn btn-link" href="/profile">Profile</button></a>
             { props.action === "Login" && login}
             { props.action === "Logout" && logout }
 

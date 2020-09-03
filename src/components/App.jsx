@@ -18,7 +18,8 @@ class App extends React.Component {
         this.state={
             user: {
                 id: 0, 
-                username: ""
+                username: "", 
+                write: true
             }, 
             token: ""
         }
@@ -26,8 +27,8 @@ class App extends React.Component {
     
 
     renderForm = (routerProps) => {
-        if(routerProps.location.pathname === "/login"){
-            return <LoginForm formName="Login to Pingry COVID Portal" handleSubmit={this.handleLoginSubmit}/>
+        if (routerProps.location.pathname === "/login"){
+            return <LoginForm formName="Login to Pingry COVID Portal" handleSubmit={this.handleLoginSubmit} />
         }
     }
 
@@ -42,6 +43,7 @@ class App extends React.Component {
         .then(res => res.json())
         .then(data => {
             if (data.user) {
+                // { debugger }
                 localStorage.setItem("user_id", data.user.id)
                 localStorage.setItem("token", data.jwt)
                 localStorage.setItem("name", data.user.username)
@@ -65,9 +67,14 @@ class App extends React.Component {
         if (localStorage.token) {
             navbarProp = "Logout"
         }
+        let navbarPermissions = true 
+        if (localStorage.write === "true") {
+            navbarPermissions = false 
+        }
+
         return (
             <div className="App">
-                <NavBar action={navbarProp}/>
+                <NavBar action={navbarProp} permission={navbarPermissions}/>
                 <Switch>
                     <Route exact path="/login" render={ this.renderForm } />
                     <Route exact path="/people" render={this.renderStudents} />

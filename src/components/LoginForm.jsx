@@ -23,7 +23,6 @@ class LoginForm extends Component {
     render() {
         let {formName} = this.props
         let {username, password} = this.state
-
         return (
         <div className="container">
             <form onSubmit={this.handleSubmit}>
