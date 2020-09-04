@@ -45,6 +45,8 @@ class NewQuarantineForm extends React.Component {
                     <input className="form-control" type="date" name="exposure" value={this.state.quarantine.exposure} onChange={this.handleChange}/>
                     <label>Is the student's isolation resolved?:</label>
                     <input id="completed" className="form-control" type="checkbox" name="completed" defaultChecked={this.state.quarantine.completed} onChange={this.handleChange}/>
+                    <label>Notes:</label>
+                    <input className="form-control" type="text" name="notes" value={this.state.quarantine.notes} onChange={this.handleChange} /> 
                     <input className="form-control" type="submit" value="Submit"/>
                 </div>
             </form>

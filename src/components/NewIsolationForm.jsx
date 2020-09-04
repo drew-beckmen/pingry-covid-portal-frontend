@@ -9,6 +9,8 @@ class NewIsolationForm extends React.Component {
             fever_free: false, 
             end_date: null, 
             completed: false,
+            notes: "", 
+            confirmed: false 
         }
     }
 
@@ -47,6 +49,8 @@ class NewIsolationForm extends React.Component {
                 <div className="form-group">
                     <label>Start Date:</label>
                     <input className="form-control" type="date" name="start_isolation" value={this.state.isolation.start_isolation} onChange={this.handleChange}/>
+                    <label>Is this a confirmed positive case?:</label>
+                    <input id="confirmed" className="form-control" type="checkbox" name="confirmed" defaultChecked={this.state.isolation.confirmed} onChange={this.handleChange}/>
                     <label>Date of Symptom Improvement:</label>
                     <input className="form-control" type="date" name="date_improving" value={this.state.isolation.date_improving} onChange={this.handleChange}/>
                     <label>Is the student fever free?:</label>
@@ -55,6 +59,8 @@ class NewIsolationForm extends React.Component {
                     <input className="form-control" type="date" name="end_date" value={this.state.isolation.end_date} onChange={this.handleChange}/>
                     <label>Is the student's isolation resolved?:</label>
                     <input id="completed" className="form-control" type="checkbox" name="completed" defaultChecked={this.state.isolation.completed} onChange={this.handleChange}/>
+                    <label>Additional notes:</label>
+                    <input className="form-control" type="text" name="notes" value={this.state.isolation.notes} onChange={this.handleChange}/>
                     <input className="form-control" type="submit" value="Submit"/>
                 </div>
             </form>

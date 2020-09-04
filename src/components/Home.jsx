@@ -7,7 +7,8 @@ class Home extends React.Component {
     constructor(props) {
         super(props); 
         this.state = {
-            dataToDisplay: []
+            dataToDisplay: [], 
+            externalData: []
         }
     }
 
@@ -19,6 +20,9 @@ class Home extends React.Component {
         })
         .then(resp => resp.json())
         .then(obj => this.setState({dataToDisplay: obj}))
+        fetch("http://dashboard.pingryanywhere.org/summarystats")
+        .then(res => res.json())
+        .then(obj => this.setState({externalData: obj}))
     }
 
     render() {
@@ -47,8 +51,8 @@ class Home extends React.Component {
                         <div className="col">
                                 <h2><img src="https://static.thenounproject.com/png/3391554-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> Internal Pingry COVID-19 Stats:</h2>
                                 <hr/>
-                                <p>The data below represents the current state of coronavirus within the Pingry community. Data in the table is split according to campus. The graph to the right shows the number of students expected to be out of school due to COVID on any given day in the next 5 days (ignore weekends).</p>
-                                <p>Statistics listed include total isolations and quarantines at both campuses as well as active isolations and quarantines at both campuses. The number of new quarantines and isolations within the last 72 hours is also included. </p>
+                                <p>The data below represents the current state of coronavirus within the Pingry community. Data in the table is split according to campus. The graph to the right shows the number of students expected to be out of school due to COVID-19 on any given day in the next 5 days (ignore weekends).</p>
+                                <p>Statistics listed include total isolations and quarantines at both campuses as well as active isolations and quarantines at both campuses. The number of new quarantines and isolations within the last 72 hours is also included. Data is also split by cohort in the event Pingry enters density reduced mode.</p>
                                 
                         </div>
                         <div className="col">
@@ -72,6 +76,46 @@ class Home extends React.Component {
                         </div>
                     </div>
                     <br/>
+                    <h3><img src="https://icons-for-free.com/iconfiles/png/512/bar+chart+currency+finance+report+statistics+icon-1320086011433421741.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Decision Matrix Statistics:</h3>
+                    <div class="card-group">
+                            <div class="card border-primary mb-3">
+                            <div class="card-header">
+                            Pingry Counties - Infection Rate in Local Counties
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{this.state.externalData[0].pingryCountiesInfectionRate.toFixed(2)}</h5>
+                                <p class="card-subtitle">14 day average, weighted based on Pingry student distribution across NJ counties</p>
+                            </div>
+                            </div>
+                            <div class="card border-primary mb-3">
+                            <div class="card-header">
+                            Pingry Counties - Case Rate Per 100,000
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{this.state.externalData[0].pingryCountiesCaseRate.toFixed(2)}</h5>
+                                <p class="card-subtitle">7 day average, weighted based on Pingry student distribution across NJ counties</p>
+                            </div>
+                        </div>
+                        <div class="card border-primary mb-3">
+                            <div class="card-header">
+                            % Campus in Isolation or Quarantine (Short Hills)
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{this.state.externalData[0].shortHills7DayIsolationQuarantine.toFixed(2)}</h5>
+                                <p class="card-subtitle">7 day average, based on this database.</p>
+                            </div>
+                        </div>
+                        <div class="card border-primary mb-3">
+                            <div class="card-header">
+                            % Campus in Isolation or Quarantine (Basking Ridge)
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{this.state.externalData[0].baskingRidge7DayIsolationQuarantine.toFixed(2)}</h5>
+                                <p class="card-subtitle">7 day average, based on this database.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
                     <h3><img src="https://static.thenounproject.com/png/1853608-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Community Data:</h3>
                     <table className="table">
                                 <thead>
