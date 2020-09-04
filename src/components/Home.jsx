@@ -12,7 +12,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://tracking-db.pingryanywhere.org/api/v1/summarystats", {
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/pingrystats", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
