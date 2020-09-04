@@ -20,6 +20,7 @@ class ShowStudent extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleStudentSubmit = this.handleStudentSubmit.bind(this)
         this.handleDestroy = this.handleDestroy.bind(this)
         this.addOneItem = this.addOneItem.bind(this)
     }
@@ -45,7 +46,7 @@ class ShowStudent extends React.Component {
         this.setState({student: oldState})
     }
 
-    handleSubmit = (e) => {
+    handleStudentSubmit = (e) => {
         e.preventDefault()
         fetch(`https://tracking-db.pingryanywhere.org/api/v1/students/${this.state.student.id}`, {
             method: "PATCH", 
@@ -54,7 +55,7 @@ class ShowStudent extends React.Component {
                 Accept: "application/json", 
                 "Authorization": `bearer ${localStorage.token}`
             }, 
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(this.state.student)
         })
         .then(resp => resp.json())
         .then(this.setState({showEdit: false}))
@@ -147,7 +148,7 @@ class ShowStudent extends React.Component {
                             <button id="create-isolation" className="btn btn-secondary active" onClick={() => this.setState({showCreateIsolation: !this.state.showCreateIsolation})}>Create Isolation</button> {" | "}
                             <button className="btn btn-secondary active" onClick={() => this.setState({showCreateQuarantine: !this.state.showCreateQuarantine})}>Create Quarantine</button> {" | "}
                             <button className="btn btn-secondary active" onClick={() => this.setState({showContactForm: !this.state.showContactForm})} disabled={isolationsList.length === 0}>Add Contacts</button> {" | "}
-                            {this.state.showEdit && <EditStudent info={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>}
+                            {this.state.showEdit && <EditStudent info={this.state} handleChange={this.handleChange} handleSubmit={this.handleStudentSubmit}/>}
                             {this.state.showCreateIsolation && <NewIsolationForm handleChange={this.handleChange} addOneIsolation={this.addOneItem} studentId={this.state.student.id}/>}
                             {this.state.showContactForm && <IsolationContactFrom list={this.state.allOtherStudents} currentStudent={this.state.student.first_name + " " + this.state.student.last_name} handleSubmit={this.handleSubmit} />}
                             {this.state.showCreateQuarantine && <NewQuarantineForm handleChange={this.handleChange} addOneQuarantine={this.addOneItem} studentId={this.state.student.id}/>}

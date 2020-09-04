@@ -19,9 +19,9 @@ class QuarantineShow extends React.Component {
         this.deleteBtn = ""
         this.convertBtn = ""
         if (this.state.showButton) {
-            this.editBtn = <button style={{"margin": "5px"}} className="btn btn-warning active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Quarantine</button>
-            this.deleteBtn = <button style={{"margin": "5px"}} className="btn btn-danger active" onClick={this.handleClick}>Delete Quarantine</button>
-            this.convertBtn = <button style={{"margin": "5px"}} className="btn btn-primary active" onClick={this.convertToIsolation}>Presumed or Confirmed Positive? Convert to Isolation</button>
+            this.editBtn = <button style={{"margin": "5px"}} className="btn btn-warning active" onClick={() => this.setState({showEdit: !this.state.showEdit})} disabled={this.state.quarantine.completed}>Edit Quarantine</button>
+            this.deleteBtn = <button style={{"margin": "5px"}} className="btn btn-danger active" onClick={this.handleClick} disabled={this.state.quarantine.completed}>Delete Quarantine</button>
+            this.convertBtn = <button style={{"margin": "5px"}} className="btn btn-primary active" onClick={this.convertToIsolation} disabled={this.state.quarantine.completed}>Presumed or Confirmed Positive? Convert to Isolation</button>
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -51,7 +51,7 @@ class QuarantineShow extends React.Component {
     convertToIsolation = (e) => {
         let oldState = {...this.state.quarantine}
         oldState["converted_to_isolation"] = true 
-        oldState["completed"] = true 
+        oldState["completed"] = true //marked as completed and converted to isolation
         this.setState({quarantine: oldState, showButton: false, showDetails: false}, () => {this.handleSubmit(e)})
         document.getElementById("create-isolation").click()
         document.body.scrollTop = document.documentElement.scrollTop = 0;

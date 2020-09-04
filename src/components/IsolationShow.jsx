@@ -18,8 +18,8 @@ class IsolationShow extends React.Component {
         this.editBtn = ""
         this.deleteBtn = ""
         if (this.props.showButton) {
-            this.editBtn = <button className="btn btn-warning active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Isolation</button>
-            this.deleteBtn = <button className="btn btn-danger active" onClick={this.handleClick}>Delete Isolation</button>
+            this.editBtn = <button className="btn btn-warning active" onClick={() => this.setState({showEdit: !this.state.showEdit})} disabled={this.state.isolation.completed}>Edit Isolation</button>
+            this.deleteBtn = <button className="btn btn-danger active" onClick={this.handleClick} disabled={this.state.isolation.completed}>Delete Isolation</button>
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
