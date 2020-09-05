@@ -45,7 +45,7 @@ class QuarantineShow extends React.Component {
         }
         let oldState = {...this.state.quarantine}
         oldState[name] = value 
-        this.setState({quarantine: oldState}, () => console.log(this.state.quarantine))
+        this.setState({quarantine: oldState})
     }
 
     convertToIsolation = (e) => {
