@@ -20,7 +20,7 @@ class Home extends React.Component {
         })
         .then(resp => resp.json())
         .then(obj => this.setState({dataToDisplay: obj}))
-        fetch("http://dashboard.pingryanywhere.org/summarystats")
+        fetch("https://pingry-covid-metrics.herokuapp.com/summarystats")
         .then(res => res.json())
         .then(obj => this.setState({externalData: obj}))
     }
@@ -30,7 +30,7 @@ class Home extends React.Component {
             return <Redirect to="/login" />
         }
         
-        if (this.state.dataToDisplay.length === 0) {
+        if (this.state.dataToDisplay.length === 0 || this.state.externalData.length === 0) {
             return (
                 <div className="jumbotron">
                     <h1 className="display-4">Welcome to Pingry's Internal COVID Tracking App!</h1>
@@ -77,41 +77,42 @@ class Home extends React.Component {
                     </div>
                     <br/>
                     <h3><img src="https://icons-for-free.com/iconfiles/png/512/bar+chart+currency+finance+report+statistics+icon-1320086011433421741.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Decision Matrix Statistics:</h3>
-                    <div class="card-group">
-                            <div class="card border-primary mb-3">
-                            <div class="card-header">
+                    <h5><em>Please note that data in this section is pulled from Pingry's external facing <a href="http://dashboard.pingryanywhere.org" target="_blank" rel="noopener noreferrer">coronavirus dashboard</a>, which is only updated once per day at 8am. For real-time stats, see the tables below.</em></h5>
+                    <div className="card-group">
+                            <div className="card border-primary mb-3">
+                            <div className="card-header">
                             Pingry Counties - Infection Rate in Local Counties
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{this.state.externalData[0].pingryCountiesInfectionRate.toFixed(2)}</h5>
-                                <p class="card-subtitle">14 day average, weighted based on Pingry student distribution across NJ counties</p>
+                            <div className="card-body">
+                                <h5 className="card-title">{this.state.externalData[0].pingryCountiesInfectionRate.toFixed(2)}</h5>
+                                <p className="card-subtitle">14 day average, weighted based on Pingry student distribution across NJ counties</p>
                             </div>
                             </div>
-                            <div class="card border-primary mb-3">
-                            <div class="card-header">
+                            <div className="card border-primary mb-3">
+                            <div className="card-header">
                             Pingry Counties - Case Rate Per 100,000
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{this.state.externalData[0].pingryCountiesCaseRate.toFixed(2)}</h5>
-                                <p class="card-subtitle">7 day average, weighted based on Pingry student distribution across NJ counties</p>
+                            <div className="card-body">
+                                <h5 className="card-title">{this.state.externalData[0].pingryCountiesCaseRate.toFixed(2)}</h5>
+                                <p className="card-subtitle">7 day average, weighted based on Pingry student distribution across NJ counties</p>
                             </div>
                         </div>
-                        <div class="card border-primary mb-3">
-                            <div class="card-header">
+                        <div className="card border-primary mb-3">
+                            <div className="card-header">
                             % Campus in Isolation or Quarantine (Short Hills)
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{this.state.externalData[0].shortHills7DayIsolationQuarantine.toFixed(2)}</h5>
-                                <p class="card-subtitle">7 day average, based on this database.</p>
+                            <div className="card-body">
+                                <h5 className="card-title">{this.state.externalData[0].shortHills7DayIsolationQuarantine.toFixed(2)}</h5>
+                                <p className="card-subtitle">7 day average, based on this database.</p>
                             </div>
                         </div>
-                        <div class="card border-primary mb-3">
-                            <div class="card-header">
+                        <div className="card border-primary mb-3">
+                            <div className="card-header">
                             % Campus in Isolation or Quarantine (Basking Ridge)
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{this.state.externalData[0].baskingRidge7DayIsolationQuarantine.toFixed(2)}</h5>
-                                <p class="card-subtitle">7 day average, based on this database.</p>
+                            <div className="card-body">
+                                <h5 className="card-title">{this.state.externalData[0].baskingRidge7DayIsolationQuarantine.toFixed(2)}</h5>
+                                <p className="card-subtitle">7 day average, based on this database.</p>
                             </div>
                         </div>
                     </div>
@@ -269,6 +270,9 @@ class Home extends React.Component {
                                     </tr>
                                 </tbody>
                             </table>
+                            <div className="text-center">
+                            <img src="https://pingryanywhere.org/assets/img/logo.svg" style={{width: 300, height: 100, display: "inline-block", background: "navy"}}></img>
+                            </div>
                 </div>
             )
         } 

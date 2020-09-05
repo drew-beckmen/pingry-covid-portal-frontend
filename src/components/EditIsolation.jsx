@@ -24,4 +24,4 @@ const EditIsolation = (props) => {
     )
 }
 
-export default EditIsolation; 
+export default EditIsolation;

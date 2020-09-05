@@ -70,7 +70,7 @@ class StudentsList extends React.Component {
             <div className="container"> 
                 <div className="row">
                     <div className="col">
-                        <label htmlFor="search">Search by Name</label>
+                        <label htmlFor="search">Search by Name (Case Sensitive):</label>
                         <input type="text" className="form-control" name="search" placeholder="Search..." value={this.state.search} onChange={this.handleChange} />
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" onChange={this.handleStudentChange} disabled={this.state.showTeachersOnly}/>
