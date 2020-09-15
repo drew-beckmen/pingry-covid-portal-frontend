@@ -104,7 +104,7 @@ class ShowStudent extends React.Component {
                     converted_to_isolation: false, 
                     completed: false, 
                     student_id: c.value, 
-                    notes: `This quarantine is linked to ${this.state.student.first_name} ${this.state.student.last_name}'s isolation. It was created because this student came into contact with  ${this.state.student.first_name} ${this.state.student.last_name}, a presumed or confirmed positive case of COVID-19`
+                    notes: `This quarantine is linked to ${this.state.student.first_name} ${this.state.student.last_name}'s isolation. It was created because this person came into contact with  ${this.state.student.first_name} ${this.state.student.last_name}, a presumed or confirmed positive case of COVID-19`
                 }}
             )
         })
@@ -144,7 +144,7 @@ class ShowStudent extends React.Component {
                             {this.state.student.grade > 0 && <p>Grade: {this.state.student.grade}</p>}
                             <p className="card-text">Campus: {this.state.student.campus}</p>
                             {this.state.student.cohort && <p className="card-text">Cohort: {this.state.student.cohort}</p>}
-                            {" | "} <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Student</button> {" | "}
+                            {" | "} <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Person</button> {" | "}
                             <button id="create-isolation" className="btn btn-secondary active" onClick={() => this.setState({showCreateIsolation: !this.state.showCreateIsolation})}>Create Isolation</button> {" | "}
                             <button className="btn btn-secondary active" onClick={() => this.setState({showCreateQuarantine: !this.state.showCreateQuarantine})}>Create Quarantine</button> {" | "}
                             <button className="btn btn-secondary active" onClick={() => this.setState({showContactForm: !this.state.showContactForm})} disabled={isolationsList.length === 0}>Add Contacts</button> {" | "}

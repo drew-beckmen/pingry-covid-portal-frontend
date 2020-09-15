@@ -6,7 +6,7 @@ const EditQuarantine = (props) => {
             <div className="form-group">
                 <label>Date of Exposure:</label>
                 <input className="form-control" type="date" name="exposure" value={props.info.quarantine.exposure} onChange={props.handleChange}/>
-                <label>Is the student's isolation resolved?:</label>
+                <label>Is the person's quarantine resolved?:</label>
                 <input id="completed" className="form-control" type="checkbox" name="completed" defaultChecked={props.info.quarantine.completed} onChange={props.handleChange}/>
                 <label>Notes:</label>
                 <input className="form-control" type="text" name="notes" value={props.info.quarantine.notes} onChange={props.handleChange} /> 

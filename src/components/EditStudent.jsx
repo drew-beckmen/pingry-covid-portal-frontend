@@ -4,7 +4,7 @@ const EditStudent = (props) => {
     return(
         <form onSubmit={props.handleSubmit}>
             <div className="form-group">
-                <h3>{props.info.student.first_name}'s Student Info:</h3>
+                <h3>{props.info.student.first_name}'s Info:</h3>
                 <label>First Name:</label>
                 <input className="form-control" type="text" name="first_name" value={props.info.student.first_name} onChange={props.handleChange}/>
                 <label>Last Name:</label>
