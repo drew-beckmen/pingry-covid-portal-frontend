@@ -58,8 +58,8 @@ class StudentsList extends React.Component {
         }
 
         listToMap = listToMap.filter(student => {
-            let fullName = student.first_name + " " + student.last_name 
-            return fullName.includes(this.state.search)
+            let fullName = (student.first_name + " " + student.last_name).toLowerCase()
+            return fullName.includes(this.state.search.toLowerCase())
         })
         const studentsList = listToMap.map(student => {
             return (

@@ -16,23 +16,25 @@ class NewIsolationForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch("https://tracking-db.pingryanywhere.org/api/v1/isolations", {
-            method: "POST", 
-            headers: {
-                "Content-Type": "application/json", 
-                "Authorization": `bearer ${localStorage.token}`
-            }, 
-            body: JSON.stringify({isolation: this.state.isolation})
-        })
-        .then(r => r.json())
-        .then(resp => {
-            if (resp.id) { 
-                this.props.addOneIsolation(resp, "isolations")
-            }
-            else {
-                alert("Not successfully added")
-            }
-        })
+        if (window.confirm(`Do you really want to submit this isolation ${localStorage.name}? The isolation has the following start date: ${this.state.isolation.start_isolation}`)) {
+            fetch("https://tracking-db.pingryanywhere.org/api/v1/isolations", {
+                method: "POST", 
+                headers: {
+                    "Content-Type": "application/json", 
+                    "Authorization": `bearer ${localStorage.token}`
+                }, 
+                body: JSON.stringify({isolation: this.state.isolation})
+            })
+            .then(r => r.json())
+            .then(resp => {
+                if (resp.id) { 
+                    this.props.addOneIsolation(resp, "isolations")
+                }
+                else {
+                    alert("Not successfully added")
+                }
+            })
+        }
     }
 
     //can't take it in as props since state is separate from parent component

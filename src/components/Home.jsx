@@ -1,6 +1,6 @@
 import React from 'react'; 
 import {Redirect} from 'react-router-dom'; 
-import { BarChart, Legend, Bar, XAxis, YAxis } from 'recharts'; 
+import { BarChart, Legend, Bar, XAxis, YAxis, Line, LineChart, Tooltip } from 'recharts'; 
 class Home extends React.Component {
 
 
@@ -8,7 +8,9 @@ class Home extends React.Component {
         super(props); 
         this.state = {
             dataToDisplay: [], 
-            externalData: []
+            externalData: [], 
+            percentagesBothCampus: [], 
+            graphs: []
         }
     }
 
@@ -20,6 +22,20 @@ class Home extends React.Component {
         })
         .then(resp => resp.json())
         .then(obj => this.setState({dataToDisplay: obj}))
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/percentages", {
+            headers: {
+                "Authorization": `bearer ${localStorage.token}`
+            }
+        })
+        .then(resp => resp.json())
+        .then(obj => this.setState({percentagesBothCampus: obj}))
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/graphs", {
+            headers: {
+                "Authorization": `bearer ${localStorage.token}`
+            }
+        })
+        .then(resp => resp.json())
+        .then(obj => this.setState({graphs: obj}))
         fetch("https://pingry-covid-metrics.herokuapp.com/summarystats")
         .then(res => res.json())
         .then(obj => this.setState({externalData: obj}))
@@ -30,7 +46,7 @@ class Home extends React.Component {
             return <Redirect to="/login" />
         }
         
-        if (this.state.dataToDisplay.length === 0 || this.state.externalData.length === 0) {
+        if (this.state.dataToDisplay.length === 0 || this.state.externalData.length === 0 || this.state.percentagesBothCampus.length === 0 || this.state.graphs.length === 0) {
             return (
                 <div className="jumbotron">
                     <h1 className="display-4">Welcome to Pingry's Internal COVID Tracking App!</h1>
@@ -52,7 +68,7 @@ class Home extends React.Component {
                                 <h2><img src="https://static.thenounproject.com/png/3391554-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> Internal Pingry COVID-19 Stats:</h2>
                                 <hr/>
                                 <p>The data below represents the current state of coronavirus within the Pingry community. Data in the table is split according to campus. The graph to the right shows the number of students expected to be out of school due to COVID-19 on any given day in the next 5 days (ignore weekends).</p>
-                                <p>Statistics listed include total isolations and quarantines at both campuses as well as active isolations and quarantines at both campuses. The number of new quarantines and isolations within the last 72 hours is also included. Data is also split by cohort in the event Pingry enters density reduced mode.</p>
+                                <p>Statistics listed include total isolations and quarantines at both campuses as well as active isolations and quarantines at both campuses. The number of new quarantines and isolations within the last 72 hours is also included. Data is also split by cohort in the event Pingry enters density reduced mode. Please contact Drew Beckmen with concerns.</p>
                                 
                         </div>
                         <div className="col">
@@ -68,11 +84,98 @@ class Home extends React.Component {
                         }}>
                             <XAxis dataKey="name" interval={0}/>
                             <YAxis />
+                            <Tooltip cursor={{fill: '#8fe8f2'}}/>
                             <Legend />
                             <Bar dataKey="students" fill="#8884d8" />
                             <Bar dataKey="adults" fill="#40eaed" />
                             <Bar dataKey="total" fill="#ba274e" />
                         </BarChart>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                                <h2><img src="https://image.flaticon.com/icons/png/512/121/121731.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> BR Quarantines and Isolations:</h2>
+                                <hr/>
+                                <em><p>Shows the number of people in quarantine and isolation in BR for the past 7 days and the next 7 days given current statistics.</p></em>
+                                
+                                <BarChart 
+                                    width={1200}
+                                    height={400}
+                                    barGap={0}
+                                    data={this.state.graphs.baskingRidge}
+                                    margin={{
+                                        top: 5, right: 30, left: 20, bottom: 5
+                                    }}>
+                                        <XAxis dataKey="name" interval={1}/>
+                                        <YAxis />
+                                        <Tooltip cursor={{fill: '#8fe8f2'}}/>
+                                        <Legend />
+                                        <Bar dataKey="isolation" fill="#8884d8" />
+                                        <Bar dataKey="quarantine" fill="#40eaed" />
+                                        <Bar dataKey="total" fill="#ba274e" />
+                                </BarChart>
+                        </div>
+                        <div className="col">
+                                <h2><img src="https://image.flaticon.com/icons/png/512/121/121731.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> SH Quarantines and Isolations:</h2>
+                                <hr/>
+                                <em><p>Shows the number of people in quarantine and isolation in SH for the past 7 days and the next 7 days given current statistics.</p></em>
+                                <BarChart 
+                                    width={1200}
+                                    height={400}
+                                    barGap={0}
+                                    data={this.state.graphs.shortHills}
+                                    margin={{
+                                        top: 5, right: 30, left: 20, bottom: 5
+                                    }}>
+                                        <XAxis dataKey="name" interval={1}/>
+                                        <YAxis />
+                                        <Legend />
+                                        <Tooltip cursor={{fill: '#8fe8f2'}}/>
+                                        <Bar dataKey="isolation" fill="#8884d8" />
+                                        <Bar dataKey="quarantine" fill="#40eaed" />
+                                        <Bar dataKey="total" fill="#ba274e" />
+                                </BarChart>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                                <h2><img src="https://image.flaticon.com/icons/png/512/121/121731.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> BR Percentage Quarantine and Isolation:</h2>
+                                <hr/>
+                                <em><p>Shows the percentage of people in quarantine and isolation in BR for the past 7 days and the next 7 days given current statistics.</p></em>
+                                
+                                <LineChart 
+                                    width={1200}
+                                    height={400}
+                                    barGap={0}
+                                    data={this.state.percentagesBothCampus.baskingRidgePercentage14Days}
+                                    margin={{
+                                        top: 5, right: 30, left: 20, bottom: 5
+                                    }}>
+                                        <XAxis dataKey="name" interval={3}/>
+                                        <YAxis />
+                                        <Legend />
+                                        <Tooltip cursor={{fill: '#8fe8f2'}}/>
+                                        <Line type="monotone" dataKey="%qi" stroke="#8884d8" activeDot={{ r: 8 }}/>
+                                </LineChart>
+                        </div>
+                        <div className="col">
+                                <h2><img src="https://image.flaticon.com/icons/png/512/121/121731.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> SH Percentage Quarantine and Isolation:</h2>
+                                <hr/>
+                                <em><p>Shows the percentage of people in quarantine and isolation in SH for the past 7 days and the next 7 days given current statistics.</p></em>
+                                <LineChart 
+                                    width={1200}
+                                    height={400}
+                                    barGap={0}
+                                    data={this.state.percentagesBothCampus.shortHillsPercentage14Days}
+                                    margin={{
+                                        top: 5, right: 30, left: 20, bottom: 5
+                                    }}>
+                                        <XAxis dataKey="name" interval={1}/>
+                                        <YAxis />
+                                        <Legend />
+                                        <Tooltip cursor={{fill: '#8fe8f2'}}/>
+                                        <Line type="monotone" dataKey="%qi" stroke="#8884d8" activeDot={{ r: 8 }}/>
+                                </LineChart>
                         </div>
                     </div>
                     <br/>
