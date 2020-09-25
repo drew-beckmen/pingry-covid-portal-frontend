@@ -39,9 +39,34 @@ class NewIsolationForm extends React.Component {
 
     //can't take it in as props since state is separate from parent component
     handleChange = (e) => {
-        let {name, value} = e.target 
+        let {name, value} = e.target
+        if (name === "fever_free") {
+            if (document.getElementById("fever").checked) {
+                value = true 
+            }
+            else {
+                value = false 
+            }
+        }
+        if (name === "completed") {
+            if (document.getElementById("completed").checked) {
+                value = true 
+            }
+            else {
+                value = false 
+            }
+        }
+        if (name === "confirmed") {
+            if (document.getElementById("confirmed").checked) {
+                value = true 
+            }
+            else {
+                value = false 
+            }
+        }
         let oldState = {...this.state.isolation}
         oldState[name] = value 
+        this.setState({isolation: oldState})
         this.setState({isolation: oldState}, () => console.log(this.state.isolation))
     }
     

@@ -10,14 +10,25 @@ class NewQuarantineForm extends React.Component {
     }
 
     handleChange = (e) => {
-        let {name, value} = e.target 
+
+        let {name, value} = e.target
+        if (name === "completed") {
+            if (document.getElementById("completed").checked) {
+                value = true 
+            }
+            else {
+                value = false 
+            }
+        }
         let oldState = {...this.state.quarantine}
         oldState[name] = value 
         this.setState({quarantine: oldState}, () => console.log(this.state.quarantine))
+        console.log(this.state.quarantine)
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
+        debugger 
         if (window.confirm(`Do you really want to submit this quarantine ${localStorage.name}? The quarantine has the following day of exposure: ${this.state.quarantine.exposure}`)) {
             fetch("https://tracking-db.pingryanywhere.org/api/v1/quarantines", {
                 method: "POST", 
@@ -45,7 +56,7 @@ class NewQuarantineForm extends React.Component {
                 <div className="form-group">
                     <label>Date of Exposure:</label>
                     <input className="form-control" type="date" name="exposure" value={this.state.quarantine.exposure} onChange={this.handleChange}/>
-                    <label>Is the student's isolation resolved?:</label>
+                    <label>Is the student's quarantine resolved?:</label>
                     <input id="completed" className="form-control" type="checkbox" name="completed" defaultChecked={this.state.quarantine.completed} onChange={this.handleChange}/>
                     <label>Notes:</label>
                     <input className="form-control" type="text" name="notes" value={this.state.quarantine.notes} onChange={this.handleChange} /> 
