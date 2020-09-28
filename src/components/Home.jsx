@@ -256,6 +256,12 @@ class Home extends React.Component {
                                         <td>{this.state.dataToDisplay.totalActiveIsolationsShortHills + this.state.dataToDisplay.totalActiveIsolationsBaskingRidge}</td>
                                     </tr>
                                     <tr>
+                                        <th scope="row">Number of Potentially Positive Isolations</th>
+                                        <td>{this.state.dataToDisplay.potentiallyPositiveIsolationsShortHills}</td>
+                                        <td>{this.state.dataToDisplay.potentiallyPositiveIsolationsBaskingRidge}</td>
+                                        <td>{this.state.dataToDisplay.potentiallyPositiveIsolationsShortHills + this.state.dataToDisplay.potentiallyPositiveIsolationsBaskingRidge}</td>
+                                    </tr>
+                                    <tr>
                                         <th scope="row">Number of Active Quarantines</th>
                                         <td>{this.state.dataToDisplay.totalActiveQuarantinesShortHills}</td>
                                         <td>{this.state.dataToDisplay.totalActiveQuarantinesBaskingRidge}</td>
