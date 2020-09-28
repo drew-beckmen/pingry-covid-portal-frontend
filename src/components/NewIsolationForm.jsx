@@ -10,7 +10,8 @@ class NewIsolationForm extends React.Component {
             end_date: null, 
             completed: false,
             notes: "", 
-            confirmed: false 
+            confirmed: false, 
+            potential: false  
         }
     }
 
@@ -64,6 +65,14 @@ class NewIsolationForm extends React.Component {
                 value = false 
             }
         }
+        if (name === "potential") {
+            if (document.getElementById("potential").checked) {
+                value = true 
+            }
+            else {
+                value = false 
+            }
+        }
         let oldState = {...this.state.isolation}
         oldState[name] = value 
         this.setState({isolation: oldState})
@@ -77,12 +86,14 @@ class NewIsolationForm extends React.Component {
                     <label>Start Date:</label>
                     <input className="form-control" type="date" name="start_isolation" value={this.state.isolation.start_isolation} onChange={this.handleChange}/>
                     <label>Is this a confirmed positive case?:</label>
-                    <input id="confirmed" className="form-control" type="checkbox" name="confirmed" defaultChecked={this.state.isolation.confirmed} onChange={this.handleChange}/>
+                    <input id="confirmed" className="form-control" type="checkbox" name="confirmed" defaultChecked={this.state.isolation.confirmed} onChange={this.handleChange} disabled={this.state.isolation.potential}/>
+                    <label>Is this a potentially positive case? Only for students who test positive through Pingry's pool testing:</label>
+                    <input id="potential" className="form-control" type="checkbox" name="potential" defaultChecked={this.state.isolation.potential} onChange={this.handleChange} disabled={this.state.isolation.confirmed}/>
                     <label>Date of Symptom Improvement:</label>
                     <input className="form-control" type="date" name="date_improving" value={this.state.isolation.date_improving} onChange={this.handleChange}/>
                     <label>Is the student fever free?:</label>
                     <input id="fever" className="form-control" type="checkbox" name="fever_free" defaultChecked={this.state.isolation.fever_free} onChange={this.handleChange}/>
-                    <label>End Date:</label>
+                    <label>End Date (please populate for +10 days if symptoms are improving):</label>
                     <input className="form-control" type="date" name="end_date" value={this.state.isolation.end_date} onChange={this.handleChange}/>
                     <label>Is the student's isolation resolved?:</label>
                     <input id="completed" className="form-control" type="checkbox" name="completed" defaultChecked={this.state.isolation.completed} onChange={this.handleChange}/>

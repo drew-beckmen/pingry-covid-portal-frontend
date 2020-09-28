@@ -7,7 +7,9 @@ const EditIsolation = (props) => {
                 <label>Start Date:</label>
                 <input className="form-control" type="date" name="start_isolation" value={props.info.isolation.start_isolation} onChange={props.handleChange}/>
                 <label>Is this a confirmed positive case?:</label>
-                <input id="confirmed" className="form-control" type="checkbox" name="confirmed" defaultChecked={props.info.isolation.confirmed} onChange={props.handleChange}/>
+                <input id="confirmed" className="form-control" type="checkbox" name="confirmed" defaultChecked={props.info.isolation.confirmed} onChange={props.handleChange} />
+                <label>Is this a potentially positive case? Only for students who test positive through Pingry's pool testing:</label>
+                <input id="potential" className="form-control" type="checkbox" name="potential" defaultChecked={props.info.isolation.potential} onChange={props.handleChange} />
                 <label>Date of Symptom Improvement:</label>
                 <input className="form-control" type="date" name="date_improving" value={props.info.isolation.date_improving} onChange={props.handleChange}/>
                 <label>Is the student fever free?:</label>

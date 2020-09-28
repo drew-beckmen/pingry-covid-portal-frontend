@@ -51,8 +51,15 @@ class IsolationShow extends React.Component {
                 value = false 
             }
         }
+        if (name === "potential") {
+            if (document.getElementById("potential").checked) {
+                value = true 
+            }
+            else {
+                value = false 
+            }
+        }
         let oldState = {...this.state.isolation}
-        // console.log(oldState)
         oldState[name] = value 
         this.setState({isolation: oldState})
     }
@@ -84,7 +91,15 @@ class IsolationShow extends React.Component {
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Start Date: {this.state.isolation.start_isolation}</h5>
-                    <h5 className="card-title">{this.state.isolation.confirmed ? "Confirmed Positive" : "Presumed Positive"}</h5>
+                    {this.state.isolation.potential && (
+                        <div>
+                            <h5 className="card-title">Potentially Positive: Individual may be released with negative PCR test within 48 hours of the Pingry test.</h5>
+                            <p className="card-text">If the person receives positive individual test result, please convert to "Confirmed Positive". If the person receives negative PCR test, please leave the isolation as potentially positive and mark it as completed. You may want to describe the situation in notes.</p><br/>
+                        </div>
+                    )}
+                    {!this.state.isolation.potential && (
+                        <h5 className="card-title">{this.state.isolation.confirmed ? "Confirmed Positive" : "Presumed Positive"}</h5>
+                    )}
                     <p className="card-text">Date Symptoms Began Improving: {this.state.isolation.date_improving || "Not Yet Improving"}</p>
                     <p className="card-text">Is the person fever free?: {this.state.isolation.fever_free ? "Yes" : "No"}</p>
                     <p className="card-text">Earliest Possible End Date: {this.state.isolation.end_date}</p>
