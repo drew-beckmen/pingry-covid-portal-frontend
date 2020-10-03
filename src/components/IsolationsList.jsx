@@ -75,7 +75,7 @@ class IsolationsList extends React.Component {
                                         <td>{isolationsList.length}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Total Active Quarantines</th>
+                                        <th scope="row">Total Active Isolations</th>
                                         <td>{numberActive}</td>
                                     </tr>
                                 </tbody>
