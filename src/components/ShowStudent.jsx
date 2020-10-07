@@ -16,7 +16,7 @@ class ShowStudent extends React.Component {
             showEdit: false, 
             showCreateQuarantine: false, 
             showCreateIsolation: false, 
-            showContactForm: false  
+            showContactForm: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -104,7 +104,7 @@ class ShowStudent extends React.Component {
                     converted_to_isolation: false, 
                     completed: false, 
                     student_id: c.value, 
-                    notes: `This quarantine is linked to ${this.state.student.first_name} ${this.state.student.last_name}'s isolation. It was created because this person came into contact with  ${this.state.student.first_name} ${this.state.student.last_name}, a presumed or confirmed positive case of COVID-19`
+                    notes: `This quarantine is linked to the person in isolation with Veracross ID #${this.state.student.veracross_id}. It was created because this person came into contact with #${this.state.student.veracross_id}, a presumed or confirmed or potentially positive case of COVID-19`
                 }}
             )
         })
@@ -124,7 +124,7 @@ class ShowStudent extends React.Component {
 
     render() {
         if (this.state.student.id) {
-
+            // debugger 
             const isolationsList = this.getIsolations().map(isolation =>
                 <IsolationShow key={isolation.id} isolation={isolation} showButton={true} destroy={this.handleDestroy} />
             )
@@ -132,13 +132,12 @@ class ShowStudent extends React.Component {
             const quarantinesList = this.getQuarantines().map(quarantine =>
                 <QuarantineShow key={quarantine.id} quarantine={quarantine} showButton={true} destroy={this.handleDestroy}/>
             )
-            // { debugger }
-
+            debugger 
             return (
                 <div>
                     <div key={this.state.student.id} className="card">
                         <div className="card-body">
-                            <h5 className="card-title">Name: {this.state.student.first_name + " " + this.state.student.last_name}</h5>
+                            <h5 className="card-title">Veracross ID: {`${this.state.student.veracross_id}`}</h5>
                             {this.state.student.grade === 0 && <p className="card-text">{"Grade: Kindergarten"}</p>}
                             {this.state.student.grade === null && <p>Faculty or Staff Member</p>}
                             {this.state.student.grade > 0 && <p>Grade: {this.state.student.grade}</p>}
@@ -150,7 +149,7 @@ class ShowStudent extends React.Component {
                             <button className="btn btn-secondary active" onClick={() => this.setState({showContactForm: !this.state.showContactForm})} disabled={isolationsList.length === 0}>Add Contacts</button> {" | "}
                             {this.state.showEdit && <EditStudent info={this.state} handleChange={this.handleChange} handleSubmit={this.handleStudentSubmit}/>}
                             {this.state.showCreateIsolation && <NewIsolationForm handleChange={this.handleChange} addOneIsolation={this.addOneItem} studentId={this.state.student.id}/>}
-                            {this.state.showContactForm && <IsolationContactFrom list={this.state.allOtherStudents} currentStudent={this.state.student.first_name + " " + this.state.student.last_name} handleSubmit={this.handleSubmit} />}
+                            {this.state.showContactForm && <IsolationContactFrom list={this.state.allOtherStudents} currentStudent={this.state.student.veracross_id} handleSubmit={this.handleSubmit} />}
                             {this.state.showCreateQuarantine && <NewQuarantineForm handleChange={this.handleChange} addOneQuarantine={this.addOneItem} studentId={this.state.student.id}/>}
                         </div>
                     </div>
