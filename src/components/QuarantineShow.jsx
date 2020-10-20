@@ -1,5 +1,6 @@
 import React from 'react'; 
 import EditQuarantine from './EditQuarantine'
+import moment from 'moment';
 
 class QuarantineShow extends React.Component {
     constructor(props) {
@@ -43,9 +44,10 @@ class QuarantineShow extends React.Component {
                 value = false 
             }
         }
+        console.log(value)
         let oldState = {...this.state.quarantine}
         oldState[name] = value 
-        this.setState({quarantine: oldState})
+        this.setState({quarantine: oldState}, () => console.log(this.state.quarantine))
     }
 
     convertToIsolation = (e) => {
@@ -81,8 +83,8 @@ class QuarantineShow extends React.Component {
 
     
     render() {
-        const afterTwoWeeks = new Date(Date.parse(this.state.quarantine.exposure) + 12096e5)
-        const endDateToDisplay = `${afterTwoWeeks.getMonth() + 1}/${afterTwoWeeks.getDate()}/${afterTwoWeeks.getFullYear()}`
+        const currentDate = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
+        const endDateToDisplay = currentDate.add(14, 'days').format('l').toString()
         return (
             <div className="card">
                 <div className="card-body">

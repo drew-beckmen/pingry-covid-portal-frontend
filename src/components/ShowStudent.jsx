@@ -95,12 +95,12 @@ class ShowStudent extends React.Component {
     getQuarantines = () => this.state.student.quarantines
 
 
-    handleSubmit = (e, whatToPost) => {
+    handleSubmit = (e, whatToPost, dateToPost) => {
         e.preventDefault(); 
         const objectsToPost = whatToPost.map(c => {
             return (
                 {quarantine: {
-                    exposure: new Date(), 
+                    exposure: dateToPost, 
                     converted_to_isolation: false, 
                     completed: false, 
                     student_id: c.value, 
@@ -132,7 +132,7 @@ class ShowStudent extends React.Component {
             const quarantinesList = this.getQuarantines().map(quarantine =>
                 <QuarantineShow key={quarantine.id} quarantine={quarantine} showButton={true} destroy={this.handleDestroy}/>
             )
-            debugger 
+
             return (
                 <div>
                     <div key={this.state.student.id} className="card">

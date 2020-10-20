@@ -6,7 +6,8 @@ class IsolationContactFrom extends React.Component {
     constructor(props) {
         super(props); 
         this.state = {
-            contacts: []
+            contacts: [],
+            exposure: undefined 
         }
     }
 
@@ -23,11 +24,16 @@ class IsolationContactFrom extends React.Component {
     }
 
     onChange = (val) => {
-        this.setState({contacts: val}) 
+        this.setState({contacts: val}, () => console.log(this.state)) 
+    }
+
+    handleDateChange = (e) => {
+        let {value} = e.target
+        this.setState({exposure: value}, () => console.log(this.state))
     }
 
     handleSubmit = (e) => {
-        this.props.handleSubmit(e, this.state.contacts)
+        this.props.handleSubmit(e, this.state.contacts, this.state.exposure)
     }
 
     render() {
@@ -48,6 +54,8 @@ class IsolationContactFrom extends React.Component {
                 />
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
+                        <label>Date of Exposure for ENTIRE Group of People:</label>
+                        <input className="form-control" type="date" name="date_exposure" value={this.state.exposure} onChange={this.handleDateChange}/>
                         <input className="form-control" type="submit" value="Submit" />
                     </div>
                 </form>
