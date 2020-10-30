@@ -84,7 +84,9 @@ class QuarantineShow extends React.Component {
     
     render() {
         const currentDate = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
-        const endDateToDisplay = currentDate.add(14, 'days').format('l').toString()
+        const currentDate2 = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
+        const endDateToDisplay = currentDate.add(13, 'days').format('l').toString()
+        const backToSchool = currentDate2.add(14, 'days').format('l').toString()
         return (
             <div className="card">
                 <div className="card-body">
@@ -92,6 +94,7 @@ class QuarantineShow extends React.Component {
                     <p className="card-text">{this.state.quarantine.completed ? "Quarantine Completed" : "Quarantine Incomplete"}</p>
                     <p className="card-text">Notes: {this.state.quarantine.notes ? this.state.quarantine.notes : "No Notes Added"}</p>
                     <p className="card-text">Final Day of Quarantine if No Conversion to Isolation: {endDateToDisplay}</p>
+                    <p className="card-text">Date of Return to Campus Activities: {backToSchool}</p>
                     <p className="card-text">{this.state.quarantine.converted_to_isolation ? "CONVERTED TO ISOLATION" : ""}</p>
                     { this.state.showDetails && this.btn }
                     { this.state.showButton && this.editBtn}
