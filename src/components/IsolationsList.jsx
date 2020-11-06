@@ -20,7 +20,7 @@ class IsolationsList extends React.Component {
             }
         })
         .then(resp => resp.json())
-        .then(obj => this.setState({isolations: obj}))
+        .then(obj => this.setState({isolations: obj, sortNewest: false, showOnlyActive: false}))
     }
 
     handleChange = (e) => {
@@ -72,7 +72,7 @@ class IsolationsList extends React.Component {
                                 <tbody>
                                     <tr>
                                         <th scope="row">Total Isolations (Active + Completed)</th>
-                                        <td>{isolationsList.length}</td>
+                                        <td>{this.state.isolations.length}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Total Active Isolations</th>

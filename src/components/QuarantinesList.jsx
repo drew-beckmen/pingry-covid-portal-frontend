@@ -21,7 +21,7 @@ class QuarantinesList extends React.Component {
             }
         })
         .then(resp => resp.json())
-        .then(obj => this.setState({quarantines: obj}))
+        .then(obj => this.setState({quarantines: obj, sortNewest: false, showOnlyActive: false}))
     }
 
     handleChange = (e) => {
@@ -78,7 +78,7 @@ class QuarantinesList extends React.Component {
                                 <tbody>
                                     <tr>
                                         <th scope="row">Total Quarantines (Active + Completed)</th>
-                                        <td>{quarantinesList.length - quarantinesConverted}</td>
+                                        <td>{this.state.quarantines.length - quarantinesConverted}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Total Active Quarantines</th>
