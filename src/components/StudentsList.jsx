@@ -58,9 +58,10 @@ class StudentsList extends React.Component {
         }
 
         listToMap = listToMap.filter(student => {
-            // let fullName = (student.first_name + " " + student.last_name).toLowerCase()
-            let veracross_id = `${student.veracross_id}`
-            return veracross_id.includes(this.state.search)
+            let fullName = (student.first_name + " " + student.last_name).toLowerCase()
+            return fullName.includes(this.state.search.toLowerCase())
+            // let veracross_id = `${student.veracross_id}`
+            // return veracross_id.includes(this.state.search)
         })
 
         const studentsList = listToMap.map(student => {
@@ -72,7 +73,7 @@ class StudentsList extends React.Component {
             <div className="container"> 
                 <div className="row">
                     <div className="col">
-                        <label htmlFor="search">Search by Student or Adult Veracross ID:</label>
+                        <label htmlFor="search">Search by Student or Adult Name:</label>
                         <input type="text" className="form-control" name="search" placeholder="Search..." value={this.state.search} onChange={this.handleChange} />
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" onChange={this.handleStudentChange} disabled={this.state.showTeachersOnly}/>

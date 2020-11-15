@@ -41,7 +41,7 @@ class IsolationContactFrom extends React.Component {
             <div>
                 <br/>
                 <hr/>
-                <h5>Please enter Veracross ID #{this.props.currentStudent}'s contacts.</h5>
+                <h5>Please enter {this.props.currentStudent}'s contacts.</h5>
                 <h6>They will automatically be logged as new quarantines and email notifications are sent automatically.</h6>
                 <p>This feature should ONLY be used if Veracross ID #{this.props.currentStudent} is currently in isolation and new contacts have been discovered.</p>
                 <Select
