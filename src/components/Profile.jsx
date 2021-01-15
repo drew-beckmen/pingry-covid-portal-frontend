@@ -11,7 +11,7 @@ class Profile extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault() 
         const newPword = e.target[0].value 
-        fetch(`https://tracking-db.pingryanywhere.org/api/v1/users/${localStorage.user_id}`, {
+        fetch(`https://tracking-db.pingryanywhere.org//api/v1/users/${localStorage.user_id}`, {
             method: "PATCH", 
             headers: {
                 "Content-Type": "application/json", 

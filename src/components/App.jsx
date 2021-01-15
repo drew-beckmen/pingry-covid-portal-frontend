@@ -33,7 +33,7 @@ class App extends React.Component {
     }
 
     handleLoginSubmit = (userInfo) => {
-        fetch("https://tracking-db.pingryanywhere.org/api/v1/login", {
+        fetch("https://tracking-db.pingryanywhere.org//api/v1/login", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"

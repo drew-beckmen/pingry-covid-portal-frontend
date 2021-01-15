@@ -66,12 +66,13 @@ class IsolationShow extends React.Component {
 
     handleClick = (e) => {
         this.props.destroy(this.state.isolation.id, "isolations")
+        alert("Isolation deleted successfully")
     }
 
     //this isn't very DRY, but focus on refactor later.
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch(`https://tracking-db.pingryanywhere.org/api/v1/isolations/${this.state.isolation.id}`, {
+        fetch(`https://tracking-db.pingryanywhere.org//api/v1/isolations/${this.state.isolation.id}`, {
             method: "PATCH", 
             headers: {
                 "Content-Type": "application/json", 
@@ -87,9 +88,17 @@ class IsolationShow extends React.Component {
 
 
     render() {
+        const hasStudentNameInfo = !!this.state.isolation.student;
+        let first_name, last_name, veracross_id;
+        if (hasStudentNameInfo) {
+            first_name = this.state.isolation.student.first_name;
+            last_name = this.state.isolation.student.last_name;
+            veracross_id = this.state.isolation.student.veracross_id;
+        }
         return (
             <div className="card">
                 <div className="card-body">
+                    {hasStudentNameInfo && <h3 className="card-title">{`${first_name} ${last_name} - ${veracross_id}`}</h3>}
                     <h5 className="card-title">Start Date: {this.state.isolation.start_isolation}</h5>
                     {this.state.isolation.potential && (
                         <div>
@@ -100,6 +109,7 @@ class IsolationShow extends React.Component {
                     {!this.state.isolation.potential && (
                         <h5 className="card-title">{this.state.isolation.confirmed ? "Confirmed Positive" : "Presumed Positive"}</h5>
                     )}
+                    <p className="card-text">Test Barcode: {this.state.isolation.barcode ? this.state.isolation.barcode : "No Barcode Added"}</p>
                     <p className="card-text">Date Symptoms Began Improving: {this.state.isolation.date_improving || "Not Yet Improving"}</p>
                     <p className="card-text">Is the person fever free?: {this.state.isolation.fever_free ? "Yes" : "No"}</p>
                     <p className="card-text">Earliest Possible End Date: {this.state.isolation.end_date}</p>

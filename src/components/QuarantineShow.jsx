@@ -67,7 +67,7 @@ class QuarantineShow extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch(`https://tracking-db.pingryanywhere.org/api/v1/quarantines/${this.state.quarantine.id}`, {
+        fetch(`https://tracking-db.pingryanywhere.org//api/v1/quarantines/${this.state.quarantine.id}`, {
             method: "PATCH", 
             headers: {
                 "Content-Type": "application/json", 
@@ -83,6 +83,13 @@ class QuarantineShow extends React.Component {
 
     
     render() {
+        const hasStudentNameInfo = !!this.state.quarantine.student;
+        let first_name, last_name, veracross_id;
+        if (hasStudentNameInfo) {
+            first_name = this.state.quarantine.student.first_name;
+            last_name = this.state.quarantine.student.last_name;
+            veracross_id = this.state.quarantine.student.veracross_id;
+        }
         const currentDate = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
         const currentDate2 = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
         const endDateToDisplay = currentDate.add(13, 'days').format('l').toString()
@@ -90,6 +97,7 @@ class QuarantineShow extends React.Component {
         return (
             <div className="card">
                 <div className="card-body">
+                    {hasStudentNameInfo && <h3 className="card-title">{`${first_name} ${last_name} - ${veracross_id}`}</h3>}
                     <h5 className="card-title">Date of Exposure: {this.state.quarantine.exposure}</h5>
                     <p className="card-text">{this.state.quarantine.completed ? "Quarantine Completed" : "Quarantine Incomplete"}</p>
                     <p className="card-text">Notes: {this.state.quarantine.notes ? this.state.quarantine.notes : "No Notes Added"}</p>

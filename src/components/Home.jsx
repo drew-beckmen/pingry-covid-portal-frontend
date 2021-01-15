@@ -10,26 +10,27 @@ class Home extends React.Component {
             dataToDisplay: [], 
             externalData: [], 
             percentagesBothCampus: [], 
-            graphs: []
+            graphs: [],
+            grades: []
         }
     }
 
     componentDidMount() {
-        fetch("https://tracking-db.pingryanywhere.org/api/v1/pingrystats", {
+        fetch("https://tracking-db.pingryanywhere.org//api/v1/pingrystats", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
         })
         .then(resp => resp.json())
         .then(obj => this.setState({dataToDisplay: obj}))
-        fetch("https://tracking-db.pingryanywhere.org/api/v1/percentages", {
+        fetch("https://tracking-db.pingryanywhere.org//api/v1/percentages", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
         })
         .then(resp => resp.json())
         .then(obj => this.setState({percentagesBothCampus: obj}))
-        fetch("https://tracking-db.pingryanywhere.org/api/v1/graphs", {
+        fetch("https://tracking-db.pingryanywhere.org//api/v1/graphs", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
@@ -39,6 +40,13 @@ class Home extends React.Component {
         fetch("https://pingry-covid-metrics.herokuapp.com/summarystats")
         .then(res => res.json())
         .then(obj => this.setState({externalData: obj}))
+        fetch("https://tracking-db.pingryanywhere.org//api/v1/bygrade", {
+            headers: {
+                "Authorization": `bearer ${localStorage.token}`
+            }
+        })
+        .then(res => res.json())
+        .then(obj => this.setState({grades: obj}))
     }
 
     render() {
@@ -46,7 +54,7 @@ class Home extends React.Component {
             return <Redirect to="/login" />
         }
         
-        if (this.state.dataToDisplay.length === 0 || this.state.externalData.length === 0 || this.state.percentagesBothCampus.length === 0 || this.state.graphs.length === 0) {
+        if (this.state.dataToDisplay.length === 0 || this.state.externalData.length === 0 || this.state.percentagesBothCampus.length === 0 || this.state.graphs.length === 0 || this.state.grades.length === 0) {
             return (
                 <div className="jumbotron">
                     <h1 className="display-4">Welcome to Pingry's Internal COVID Tracking App!</h1>
@@ -80,15 +88,15 @@ class Home extends React.Component {
                         barGap={0}
                         data={this.state.dataToDisplay.outOfSchoolHash}
                         margin={{
-                            top: 5, right: 30, left: 20, bottom: 5
+                            top: 5, right: 30, left: 0, bottom: 5
                         }}>
                             <XAxis dataKey="name" interval={0}/>
                             <YAxis />
                             <Tooltip cursor={{fill: '#8fe8f2'}}/>
                             <Legend />
-                            <Bar dataKey="students" fill="#8884d8" />
-                            <Bar dataKey="adults" fill="#40eaed" />
-                            <Bar dataKey="total" fill="#ba274e" />
+                            <Bar dataKey="students" fill="#3268a8" />
+                            <Bar dataKey="adults" fill="#b6cae0" />
+                            <Bar dataKey="total" fill="#1b314a" />
                         </BarChart>
                         </div>
                     </div>
@@ -104,15 +112,15 @@ class Home extends React.Component {
                                     barGap={0}
                                     data={this.state.graphs.baskingRidge}
                                     margin={{
-                                        top: 5, right: 30, left: 20, bottom: 5
+                                        top: 5, right: 30, left: 0, bottom: 5
                                     }}>
                                         <XAxis dataKey="name" interval={1}/>
                                         <YAxis />
                                         <Tooltip cursor={{fill: '#8fe8f2'}}/>
                                         <Legend />
-                                        <Bar dataKey="isolation" fill="#8884d8" />
-                                        <Bar dataKey="quarantine" fill="#40eaed" />
-                                        <Bar dataKey="total" fill="#ba274e" />
+                                        <Bar dataKey="isolation" fill="#3268a8" />
+                                        <Bar dataKey="quarantine" fill="#b6cae0" />
+                                        <Bar dataKey="total" fill="#1b314a" />
                                 </BarChart>
                         </div>
                         <div className="col">
@@ -125,15 +133,15 @@ class Home extends React.Component {
                                     barGap={0}
                                     data={this.state.graphs.shortHills}
                                     margin={{
-                                        top: 5, right: 30, left: 20, bottom: 5
+                                        top: 5, right: 30, left: 0, bottom: 5
                                     }}>
                                         <XAxis dataKey="name" interval={1}/>
                                         <YAxis />
                                         <Legend />
                                         <Tooltip cursor={{fill: '#8fe8f2'}}/>
-                                        <Bar dataKey="isolation" fill="#8884d8" />
-                                        <Bar dataKey="quarantine" fill="#40eaed" />
-                                        <Bar dataKey="total" fill="#ba274e" />
+                                        <Bar dataKey="isolation" fill="#3268a8" />
+                                        <Bar dataKey="quarantine" fill="#b6cae0" />
+                                        <Bar dataKey="total" fill="#1b314a" />
                                 </BarChart>
                         </div>
                     </div>
@@ -149,13 +157,13 @@ class Home extends React.Component {
                                     barGap={0}
                                     data={this.state.percentagesBothCampus.baskingRidgePercentage14Days}
                                     margin={{
-                                        top: 5, right: 30, left: 20, bottom: 5
+                                        top: 5, right: 30, left: 0, bottom: 5
                                     }}>
                                         <XAxis dataKey="name" interval={3}/>
                                         <YAxis />
                                         <Legend />
                                         <Tooltip cursor={{fill: '#8fe8f2'}}/>
-                                        <Line type="monotone" dataKey="%qi" stroke="#8884d8" activeDot={{ r: 8 }}/>
+                                        <Line type="monotone" dataKey="%qi" stroke="#3268a8" activeDot={{ r: 8 }}/>
                                 </LineChart>
                         </div>
                         <div className="col">
@@ -168,13 +176,13 @@ class Home extends React.Component {
                                     barGap={0}
                                     data={this.state.percentagesBothCampus.shortHillsPercentage14Days}
                                     margin={{
-                                        top: 5, right: 30, left: 20, bottom: 5
+                                        top: 5, right: 30, left: 0, bottom: 5
                                     }}>
                                         <XAxis dataKey="name" interval={1}/>
                                         <YAxis />
                                         <Legend />
                                         <Tooltip cursor={{fill: '#8fe8f2'}}/>
-                                        <Line type="monotone" dataKey="%qi" stroke="#8884d8" activeDot={{ r: 8 }}/>
+                                        <Line type="monotone" dataKey="%qi" stroke="#3268a8" activeDot={{ r: 8 }}/>
                                 </LineChart>
                         </div>
                     </div>
@@ -348,40 +356,60 @@ class Home extends React.Component {
                             </tr>
                         </tbody>
                     </table>
-                            <h3><img src="https://static.thenounproject.com/png/1248170-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Adults Only:</h3>
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Metric</th>
-                                        <th scope="col">Short Hills</th>
-                                        <th scope="col">Basking Ridge</th>
-                                        <th scope="col">Overall</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Active Isolations</th>
-                                        <td>{this.state.dataToDisplay.shortHillsAdultsActiveIsolations}</td>
-                                        <td>{this.state.dataToDisplay.baskingRidgeAdultsActiveIsolations}</td>
-                                        <td>{this.state.dataToDisplay.shortHillsAdultsActiveIsolations + this.state.dataToDisplay.baskingRidgeAdultsActiveIsolations}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Active Quarantines</th>
-                                        <td>{this.state.dataToDisplay.shortHillsAdultsActiveQuarantines}</td>
-                                        <td>{this.state.dataToDisplay.baskingRidgeAdultsActiveQuarantines}</td>
-                                        <td>{this.state.dataToDisplay.shortHillsAdultsActiveQuarantines + this.state.dataToDisplay.baskingRidgeAdultsActiveQuarantines}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Number of Adults</th>
-                                        <td>{this.state.dataToDisplay.shortHillsAdults}</td>
-                                        <td>{this.state.dataToDisplay.baskingRidgeAdults}</td>
-                                        <td>{this.state.dataToDisplay.shortHillsAdults + this.state.dataToDisplay.baskingRidgeAdults}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div className="text-center">
-                            <img src="https://pingryanywhere.org/assets/img/logo.svg" style={{width: 300, height: 100, display: "inline-block", background: "navy"}}></img>
-                            </div>
+                    <div className="col">
+                                <h2><img src="https://www.freeiconspng.com/uploads/school-student-icon-16.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> Student Quarantines and Isolations:</h2>
+                                <hr/>
+                                <em><p>Shows the breakdown of the number of people currently in quarantine or isolation by grade.</p></em>
+                                <BarChart 
+                                    width={1200}
+                                    height={400}
+                                    barGap={0}
+                                    data={this.state.grades}
+                                    margin={{
+                                        top: 5, right: 30, left: 0, bottom: 5
+                                    }}>
+                                        <XAxis dataKey="name" interval={1}/>
+                                        <YAxis />
+                                        <Legend />
+                                        <Tooltip cursor={{fill: '#8fe8f2'}}/>
+                                        <Bar dataKey="isolation" fill="#3268a8" />
+                                        <Bar dataKey="quarantine" fill="#b6cae0" />
+                                </BarChart>
+                        </div>
+                    <h3><img src="https://static.thenounproject.com/png/1248170-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Adults Only:</h3>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Metric</th>
+                                <th scope="col">Short Hills</th>
+                                <th scope="col">Basking Ridge</th>
+                                <th scope="col">Overall</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Active Isolations</th>
+                                <td>{this.state.dataToDisplay.shortHillsAdultsActiveIsolations}</td>
+                                <td>{this.state.dataToDisplay.baskingRidgeAdultsActiveIsolations}</td>
+                                <td>{this.state.dataToDisplay.shortHillsAdultsActiveIsolations + this.state.dataToDisplay.baskingRidgeAdultsActiveIsolations}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Active Quarantines</th>
+                                <td>{this.state.dataToDisplay.shortHillsAdultsActiveQuarantines}</td>
+                                <td>{this.state.dataToDisplay.baskingRidgeAdultsActiveQuarantines}</td>
+                                <td>{this.state.dataToDisplay.shortHillsAdultsActiveQuarantines + this.state.dataToDisplay.baskingRidgeAdultsActiveQuarantines}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Number of Adults</th>
+                                <td>{this.state.dataToDisplay.shortHillsAdults}</td>
+                                <td>{this.state.dataToDisplay.baskingRidgeAdults}</td>
+                                <td>{this.state.dataToDisplay.shortHillsAdults + this.state.dataToDisplay.baskingRidgeAdults}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div className="text-center">
+                    <img src="https://pingryanywhere.org/assets/img/logo.svg" style={{width: 300, height: 100, display: "inline-block", background: "navy"}}></img>
+                    </div>
                 </div>
             )
         } 

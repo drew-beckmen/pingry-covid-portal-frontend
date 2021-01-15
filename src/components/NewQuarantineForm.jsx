@@ -29,7 +29,7 @@ class NewQuarantineForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault()
         if (window.confirm(`Do you really want to submit this quarantine ${localStorage.name}? The quarantine has the following day of exposure: ${this.state.quarantine.exposure}`)) {
-            fetch("https://tracking-db.pingryanywhere.org/api/v1/quarantines", {
+            fetch("https://tracking-db.pingryanywhere.org//api/v1/quarantines", {
                 method: "POST", 
                 headers: {
                     "Content-Type": "application/json", 
