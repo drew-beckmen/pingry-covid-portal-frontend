@@ -82,7 +82,7 @@ class NewIsolationForm extends React.Component {
     render() {
         let {start_isolation, confirmed, potential, barcode} = this.state.isolation;
         barcode = barcode ? barcode : ""
-        const validToSubmit = start_isolation && ((confirmed !== potential && ((confirmed && barcode.length === 0) || (potential && barcode.length > 10))) || !(confirmed || potential))
+        const validToSubmit = start_isolation && ((confirmed !== potential && ((confirmed && barcode.length === 0) || (potential && barcode.length >= 10))) || !(confirmed || potential))
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
