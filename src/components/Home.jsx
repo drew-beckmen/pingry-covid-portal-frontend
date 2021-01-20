@@ -16,21 +16,21 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://tracking-db.pingryanywhere.org//api/v1/pingrystats", {
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/pingrystats", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
         })
         .then(resp => resp.json())
         .then(obj => this.setState({dataToDisplay: obj}))
-        fetch("https://tracking-db.pingryanywhere.org//api/v1/percentages", {
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/percentages", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
         })
         .then(resp => resp.json())
         .then(obj => this.setState({percentagesBothCampus: obj}))
-        fetch("https://tracking-db.pingryanywhere.org//api/v1/graphs", {
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/graphs", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
@@ -40,7 +40,7 @@ class Home extends React.Component {
         fetch("https://pingry-covid-metrics.herokuapp.com/summarystats")
         .then(res => res.json())
         .then(obj => this.setState({externalData: obj}))
-        fetch("https://tracking-db.pingryanywhere.org//api/v1/bygrade", {
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/bygrade", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }

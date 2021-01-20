@@ -14,7 +14,7 @@ class IsolationsList extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://tracking-db.pingryanywhere.org//api/v1/isolations", {
+        fetch("https://tracking-db.pingryanywhere.org/api/v1/isolations", {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }

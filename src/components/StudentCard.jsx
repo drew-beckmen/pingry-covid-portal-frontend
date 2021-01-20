@@ -2,7 +2,6 @@ import React from 'react';
 
 
 const StudentCard = (props) => {
-    // { debugger }
     return (
         <div className="card">
             <div className="card-body">

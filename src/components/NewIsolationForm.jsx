@@ -18,7 +18,7 @@ class NewIsolationForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault()
         if (window.confirm(`Do you really want to submit this isolation ${localStorage.name}? The isolation has the following start date: ${this.state.isolation.start_isolation} `)) {
-            fetch("https://tracking-db.pingryanywhere.org//api/v1/isolations", {
+            fetch("https://tracking-db.pingryanywhere.org/api/v1/isolations", {
                 method: "POST", 
                 headers: {
                     "Content-Type": "application/json", 

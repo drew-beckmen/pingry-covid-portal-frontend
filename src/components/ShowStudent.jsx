@@ -31,7 +31,7 @@ class ShowStudent extends React.Component {
         this.setState({student: oldState})
 
         //Delete from the Database
-        fetch(`https://tracking-db.pingryanywhere.org//api/v1/${key}/${id}`, {
+        fetch(`https://tracking-db.pingryanywhere.org/api/v1/${key}/${id}`, {
             method: "DELETE", 
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
@@ -48,7 +48,7 @@ class ShowStudent extends React.Component {
 
     handleStudentSubmit = (e) => {
         e.preventDefault()
-        fetch(`https://tracking-db.pingryanywhere.org//api/v1/students/${this.state.student.id}`, {
+        fetch(`https://tracking-db.pingryanywhere.org/api/v1/students/${this.state.student.id}`, {
             method: "PATCH", 
             headers: {
                 "Content-Type": "application/json", 
@@ -62,7 +62,7 @@ class ShowStudent extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`https://tracking-db.pingryanywhere.org//api/v1/students/${this.props.match.params.id}`, {
+        fetch(`https://tracking-db.pingryanywhere.org/api/v1/students/${this.props.match.params.id}`, {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
@@ -71,7 +71,7 @@ class ShowStudent extends React.Component {
         .then(obj => this.setState({student: obj}))
         
         // this is redundant, can you fix it later
-        fetch(`https://tracking-db.pingryanywhere.org//api/v1/studentinfo`, {
+        fetch(`https://tracking-db.pingryanywhere.org/api/v1/studentinfo`, {
             headers: {
                 "Authorization": `bearer ${localStorage.token}`
             }
@@ -109,7 +109,7 @@ class ShowStudent extends React.Component {
             )
         })
         objectsToPost.forEach(obj => {
-            fetch("https://tracking-db.pingryanywhere.org//api/v1/quarantines", {
+            fetch("https://tracking-db.pingryanywhere.org/api/v1/quarantines", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json", 

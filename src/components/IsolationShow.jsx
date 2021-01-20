@@ -72,7 +72,7 @@ class IsolationShow extends React.Component {
     //this isn't very DRY, but focus on refactor later.
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch(`https://tracking-db.pingryanywhere.org//api/v1/isolations/${this.state.isolation.id}`, {
+        fetch(`https://tracking-db.pingryanywhere.org/api/v1/isolations/${this.state.isolation.id}`, {
             method: "PATCH", 
             headers: {
                 "Content-Type": "application/json", 

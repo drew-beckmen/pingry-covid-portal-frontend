@@ -67,7 +67,7 @@ class QuarantineShow extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        fetch(`https://tracking-db.pingryanywhere.org//api/v1/quarantines/${this.state.quarantine.id}`, {
+        fetch(`https://tracking-db.pingryanywhere.org/api/v1/quarantines/${this.state.quarantine.id}`, {
             method: "PATCH", 
             headers: {
                 "Content-Type": "application/json", 
@@ -93,7 +93,10 @@ class QuarantineShow extends React.Component {
         const currentDate = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
         const currentDate2 = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
         const endDateToDisplay = currentDate.add(13, 'days').format('l').toString()
-        const backToSchool = currentDate2.add(14, 'days').format('l').toString()
+        let backToSchool = currentDate2.add(14, 'days').format('l').toString()
+        if (this.state.quarantine.end_date) {
+            backToSchool = moment(this.state.quarantine.end_date).add(1, 'days').format('l').toString()
+        }
         return (
             <div className="card">
                 <div className="card-body">
@@ -101,7 +104,7 @@ class QuarantineShow extends React.Component {
                     <h5 className="card-title">Date of Exposure: {this.state.quarantine.exposure}</h5>
                     <p className="card-text">{this.state.quarantine.completed ? "Quarantine Completed" : "Quarantine Incomplete"}</p>
                     <p className="card-text">Notes: {this.state.quarantine.notes ? this.state.quarantine.notes : "No Notes Added"}</p>
-                    <p className="card-text">Final Day of Quarantine if No Conversion to Isolation: {endDateToDisplay}</p>
+                    <p className="card-text">Final Day of Quarantine if No Conversion to Isolation: {this.state.quarantine.end_date ? moment(this.state.quarantine.end_date ).format('l') : endDateToDisplay}</p>
                     <p className="card-text">Date of Return to Campus Activities: {backToSchool}</p>
                     <p className="card-text">{this.state.quarantine.converted_to_isolation ? "CONVERTED TO ISOLATION" : ""}</p>
                     { this.state.showDetails && this.btn }
