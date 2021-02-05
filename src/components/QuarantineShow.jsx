@@ -92,8 +92,8 @@ class QuarantineShow extends React.Component {
         }
         const currentDate = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
         const currentDate2 = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
-        const endDateToDisplay = currentDate.add(13, 'days').format('l').toString()
-        let backToSchool = currentDate2.add(14, 'days').format('l').toString()
+        const endDateToDisplay = currentDate.add(14, 'days').format('l').toString()
+        let backToSchool = currentDate2.add(15, 'days').format('l').toString()
         if (this.state.quarantine.end_date) {
             backToSchool = moment(this.state.quarantine.end_date).add(1, 'days').format('l').toString()
         }
