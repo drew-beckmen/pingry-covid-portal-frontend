@@ -7,7 +7,8 @@ class IsolationContactFrom extends React.Component {
         super(props); 
         this.state = {
             contacts: [],
-            exposure: undefined 
+            exposure: undefined,
+            is_seven_day: false
         }
     }
 
@@ -32,8 +33,12 @@ class IsolationContactFrom extends React.Component {
         this.setState({exposure: value}, () => console.log(this.state))
     }
 
+    handleSevenDayChange = (e) => {
+        this.setState({is_seven_day: e.target.checked}, () => console.log(this.state))
+    }
+
     handleSubmit = (e) => {
-        this.props.handleSubmit(e, this.state.contacts, this.state.exposure)
+        this.props.handleSubmit(e, this.state.contacts, this.state.exposure, this.state.is_seven_day)
     }
 
     render() {
@@ -56,6 +61,8 @@ class IsolationContactFrom extends React.Component {
                     <div className="form-group">
                         <label>Date of Exposure for ENTIRE Group of People:</label>
                         <input className="form-control" type="date" name="date_exposure" value={this.state.exposure} onChange={this.handleDateChange}/>
+                        <label>Is this a seven day quarantine?:</label>
+                        <input id="is_seven_day" className="form-control" type="checkbox" name="is_seven_day" onChange={this.handleSevenDayChange}/>
                         <input className="form-control" type="submit" value="Submit" />
                     </div>
                 </form>

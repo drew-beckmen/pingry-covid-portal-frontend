@@ -37,12 +37,9 @@ class QuarantineShow extends React.Component {
     handleChange = (e) => {
         let {name, value} = e.target
         if (name === "completed") {
-            if (document.getElementById("completed").checked) {
-                value = true 
-            }
-            else {
-                value = false 
-            }
+            value = document.getElementById("completed").checked
+        } else if (name === 'is_seven_day') {
+            value = document.getElementById("is_seven_day").checked
         }
         console.log(value)
         let oldState = {...this.state.quarantine}
@@ -92,8 +89,17 @@ class QuarantineShow extends React.Component {
         }
         const currentDate = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
         const currentDate2 = moment(this.state.quarantine.exposure, "YYYY-MM-DD")
-        const endDateToDisplay = currentDate.add(14, 'days').format('l').toString()
-        let backToSchool = currentDate2.add(15, 'days').format('l').toString()
+        let endDateToDisplay;
+        let backToSchool;
+        // added option to shorten quarantine to 7 days because of state guidance
+        if (this.state.quarantine.is_seven_day) {
+            endDateToDisplay = currentDate.add(7, 'days').format('l').toString()
+            backToSchool = currentDate2.add(8, 'days').format('l').toString()
+        } else {
+            endDateToDisplay = currentDate.add(14, 'days').format('l').toString()
+            backToSchool = currentDate2.add(15, 'days').format('l').toString()
+        }
+
         if (this.state.quarantine.end_date) {
             backToSchool = moment(this.state.quarantine.end_date).add(1, 'days').format('l').toString()
         }

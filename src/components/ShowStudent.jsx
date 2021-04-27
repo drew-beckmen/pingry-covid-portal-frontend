@@ -95,7 +95,7 @@ class ShowStudent extends React.Component {
     getQuarantines = () => this.state.student.quarantines
 
 
-    handleSubmit = (e, whatToPost, dateToPost) => {
+    handleSubmit = (e, whatToPost, dateToPost, is_seven_day) => {
         e.preventDefault(); 
         const objectsToPost = whatToPost.map(c => {
             return (
@@ -103,7 +103,8 @@ class ShowStudent extends React.Component {
                     exposure: dateToPost, 
                     converted_to_isolation: false, 
                     completed: false, 
-                    student_id: c.value, 
+                    student_id: c.value,
+                    is_seven_day: is_seven_day,
                     notes: `This quarantine is linked to ${this.state.student.first_name} ${this.state.student.last_name}'s isolation. It was created because this person came into contact with  ${this.state.student.first_name} ${this.state.student.last_name}, a presumed or confirmed positive case of COVID-19`
                 }}
             )

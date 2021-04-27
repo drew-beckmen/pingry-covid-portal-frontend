@@ -13,13 +13,10 @@ class NewQuarantineForm extends React.Component {
 
         let {name, value} = e.target
         if (name === "completed") {
-            if (document.getElementById("completed").checked) {
-                value = true 
-            }
-            else {
-                value = false 
-            }
-        }
+            value = document.getElementById("completed").checked;
+        } else if (name === "is_seven_day")
+            value = document.getElementById("is_seven_day").checked;
+
         let oldState = {...this.state.quarantine}
         oldState[name] = value 
         this.setState({quarantine: oldState}, () => console.log(this.state.quarantine))
@@ -59,6 +56,8 @@ class NewQuarantineForm extends React.Component {
                     <input className="form-control" type="date" name="end_date" value={this.state.quarantine.end_date} onChange={this.handleChange}/>
                     <label>Is the student's quarantine resolved?:</label>
                     <input id="completed" className="form-control" type="checkbox" name="completed" defaultChecked={this.state.quarantine.completed} onChange={this.handleChange}/>
+                    <label>Is this a seven day quarantine?:</label>
+                    <input id="is_seven_day" className="form-control" type="checkbox" name="is_seven_day" defaultChecked={this.state.quarantine.is_seven_day} onChange={this.handleChange}/>
                     <label>Notes:</label>
                     <input className="form-control" type="text" name="notes" value={this.state.quarantine.notes} onChange={this.handleChange} /> 
                     <input className="form-control" type="submit" value="Submit"/>
