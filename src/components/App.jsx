@@ -8,6 +8,7 @@ import IsolationsList from './IsolationsList'
 import QuarantineList from './QuarantinesList'
 import EditStudent from './EditStudent'
 import IsolationShow from './IsolationShow'
+import ContactList from './ContactList';
 import Profile from './Profile'
 import Home from './Home'; 
 
@@ -43,7 +44,6 @@ class App extends React.Component {
         .then(res => res.json())
         .then(data => {
             if (data.user) {
-                // { debugger }
                 localStorage.setItem("user_id", data.user.id)
                 localStorage.setItem("token", data.jwt)
                 localStorage.setItem("name", data.user.username)
@@ -83,6 +83,7 @@ class App extends React.Component {
                     <Route exact path="/isolations" component={IsolationsList} />
                     <Route path="/isolations/:id" component={IsolationShow} />
                     <Route path="/quarantines" component={QuarantineList} />
+                    <Route path="/contacts" component={ContactList} />
                     <Route exact path="/profile" component={Profile} />
                     <Route path="/" exact component={Home} />
                     <Route render={ () => <p>Page not Found</p> } />

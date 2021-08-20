@@ -28,6 +28,7 @@ const NavBar = (props) => {
             <a href="/people"><button className="btn btn-link" disabled={props.permission}>All People</button></a>
             <a href="/quarantines"><button className="btn btn-link" disabled={props.permission}>Quarantines</button></a>
             <a href="/isolations"><button className="btn btn-link" disabled={props.permission}>Isolations</button></a>
+            <a href="/contacts"><button className="btn btn-link" disabled={props.permission}>Contacts</button></a>
             <a href="/profile"><button className="btn btn-link" href="/profile">Profile</button></a>
             { props.action === "Login" && login}
             { props.action === "Logout" && logout }

@@ -8,7 +8,8 @@ class IsolationContactFrom extends React.Component {
         this.state = {
             contacts: [],
             exposure: undefined,
-            is_seven_day: false
+            is_seven_day: false,
+            is_vaccinated: false
         }
     }
 
@@ -37,8 +38,12 @@ class IsolationContactFrom extends React.Component {
         this.setState({is_seven_day: e.target.checked}, () => console.log(this.state))
     }
 
+    handleIsVaccinated = (e) => {
+        this.setState({is_vaccinated: e.target.checked}, () => console.log(this.state))
+    }
+
     handleSubmit = (e) => {
-        this.props.handleSubmit(e, this.state.contacts, this.state.exposure, this.state.is_seven_day)
+        this.props.handleSubmit(e, this.state.contacts, this.state.exposure, this.state.is_seven_day, this.state.is_vaccinated)
     }
 
     render() {
@@ -62,7 +67,9 @@ class IsolationContactFrom extends React.Component {
                         <label>Date of Exposure for ENTIRE Group of People:</label>
                         <input className="form-control" type="date" name="date_exposure" value={this.state.exposure} onChange={this.handleDateChange}/>
                         <label>Is this a seven day quarantine?:</label>
-                        <input id="is_seven_day" className="form-control" type="checkbox" name="is_seven_day" onChange={this.handleSevenDayChange}/>
+                        <input id="is_seven_day" disabled={this.state.is_vaccinated} className="form-control" type="checkbox" name="is_seven_day" onChange={this.handleSevenDayChange}/>
+                        <label>Is this just a contact since all of the individuals above are vaccinated?:</label>
+                        <input id="is_vaccinated" disabled={this.state.is_seven_day} className="form-control" type="checkbox" name="is_vaccinated" onChange={this.handleIsVaccinated}/>
                         <input className="form-control" type="submit" value="Submit" />
                     </div>
                 </form>

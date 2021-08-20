@@ -4,7 +4,9 @@ import QuarantineShow from './QuarantineShow'
 import EditStudent from './EditStudent';
 import NewIsolationForm from './NewIsolationForm';
 import NewQuarantineForm from './NewQuarantineForm'
-import IsolationContactFrom from './IsolationContactForm';
+import IsolationContactForm from './IsolationContactForm';
+import ContactShow from './ContactShow';
+import NewContactForm from './NewContactForm';
 
 
 class ShowStudent extends React.Component {
@@ -16,7 +18,8 @@ class ShowStudent extends React.Component {
             showEdit: false, 
             showCreateQuarantine: false, 
             showCreateIsolation: false, 
-            showContactForm: false
+            showContactForm: false,
+            showCreateContact: false,
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -83,34 +86,27 @@ class ShowStudent extends React.Component {
     addOneItem(itm, key) {
         delete itm.student
         this.state.student[key].push(itm)
-        key === "isolations" ? this.setState({showCreateIsolation: false}) : this.setState({showCreateQuarantine: false})
 
-        //handle adding new contacts - with a separate component
-        if (key === "isolations") {this.setState({showContactForm: true})}
+        // new addition for contacts where you are vaccinated and don't have to quarantine
+        if (key === 'contacts') {
+            this.setState({showCreateContact: false});
+        } else if (key === "isolations") {
+            this.setState({showCreateIsolation: false, showContactForm: true});
+        } else {
+            this.setState({showCreateQuarantine: false})
+        }
     }
 
     //handle submit for forms on both isolations and quarantines
 
     getIsolations = () => this.state.student.isolations
     getQuarantines = () => this.state.student.quarantines
+    getContacts = () => this.state.student.contacts
 
 
-    handleSubmit = (e, whatToPost, dateToPost, is_seven_day) => {
-        e.preventDefault(); 
-        const objectsToPost = whatToPost.map(c => {
-            return (
-                {quarantine: {
-                    exposure: dateToPost, 
-                    converted_to_isolation: false, 
-                    completed: false, 
-                    student_id: c.value,
-                    is_seven_day: is_seven_day,
-                    notes: `This quarantine is linked to ${this.state.student.first_name} ${this.state.student.last_name}'s isolation. It was created because this person came into contact with  ${this.state.student.first_name} ${this.state.student.last_name}, a presumed or confirmed positive case of COVID-19`
-                }}
-            )
-        })
-        objectsToPost.forEach(obj => {
-            fetch("https://tracking-db.pingryanywhere.org/api/v1/quarantines", {
+    postNewContacts = (objects, target) => {
+        objects.forEach(obj => {
+            fetch(`https://tracking-db.pingryanywhere.org/api/v1/${target}`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json", 
@@ -120,7 +116,42 @@ class ShowStudent extends React.Component {
             body: JSON.stringify(obj)
             })
         })
-        this.setState({showContactForm: false})
+    }
+
+    //add contacts for a students isolation
+    handleSubmit = (e, whatToPost, dateToPost, is_seven_day, is_vaccinated) => {
+        e.preventDefault(); 
+        let objectsToPost;
+        let target;
+        if (!is_vaccinated) {
+            objectsToPost = whatToPost.map(c => {
+                return (
+                    {quarantine: {
+                        exposure: dateToPost, 
+                        converted_to_isolation: false, 
+                        completed: false, 
+                        student_id: c.value,
+                        is_seven_day: is_seven_day,
+                        notes: `This quarantine is linked to ${this.state.student.first_name} ${this.state.student.last_name}'s isolation. It was created because this person came into contact with  ${this.state.student.first_name} ${this.state.student.last_name}, a presumed or confirmed positive case of COVID-19`
+                    }}
+                )
+            })
+            target = 'quarantines';
+
+        } else {
+            objectsToPost = whatToPost.map(c => {
+                return (
+                    {contact: {
+                        exposure: dateToPost, 
+                        student_id: c.value,
+                        notes: `This contact is linked to ${this.state.student.first_name} ${this.state.student.last_name}'s isolation. It was created because this person came into contact with  ${this.state.student.first_name} ${this.state.student.last_name}, a presumed or confirmed positive case of COVID-19. Since this individual is vaccinated, a quarantine is not required.`
+                    }}
+                )
+            })
+            target = 'contacts';
+        }
+        this.postNewContacts(objectsToPost, target);
+        this.setState({showContactForm: false});
     }
 
     render() {
@@ -132,6 +163,11 @@ class ShowStudent extends React.Component {
 
             const quarantinesList = this.getQuarantines().map(quarantine =>
                 <QuarantineShow key={quarantine.id} quarantine={quarantine} showButton={true} destroy={this.handleDestroy}/>
+            )
+
+
+            const contactsList = this.getContacts().map(contact =>
+                <ContactShow key={contact.id} contact={contact} showButton={true} destroy={this.handleDestroy}/>
             )
 
             return (
@@ -147,17 +183,21 @@ class ShowStudent extends React.Component {
                             {" | "} <button className="btn btn-secondary active" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Edit Person</button> {" | "}
                             <button id="create-isolation" className="btn btn-secondary active" onClick={() => this.setState({showCreateIsolation: !this.state.showCreateIsolation})}>Create Isolation</button> {" | "}
                             <button className="btn btn-secondary active" onClick={() => this.setState({showCreateQuarantine: !this.state.showCreateQuarantine})}>Create Quarantine</button> {" | "}
-                            <button className="btn btn-secondary active" onClick={() => this.setState({showContactForm: !this.state.showContactForm})} disabled={isolationsList.length === 0}>Add Contacts</button> {" | "}
+                            <button className="btn btn-secondary active" onClick={() => this.setState({showCreateContact: !this.state.showCreateContact})}>Create Contact (No Quarantine Required)</button> {" | "}
+                            <button className="btn btn-secondary active" onClick={() => this.setState({showContactForm: !this.state.showContactForm})} disabled={isolationsList.length === 0}>Bulk Add Contacts of Isolated Student</button> {" | "}
                             {this.state.showEdit && <EditStudent info={this.state} handleChange={this.handleChange} handleSubmit={this.handleStudentSubmit}/>}
                             {this.state.showCreateIsolation && <NewIsolationForm handleChange={this.handleChange} addOneIsolation={this.addOneItem} studentId={this.state.student.id}/>}
-                            {this.state.showContactForm && <IsolationContactFrom list={this.state.allOtherStudents} currentStudent={this.state.student.first_name + " " + this.state.student.last_name} handleSubmit={this.handleSubmit} />}
+                            {this.state.showContactForm && <IsolationContactForm list={this.state.allOtherStudents} currentStudent={this.state.student.first_name + " " + this.state.student.last_name} handleSubmit={this.handleSubmit} />}
                             {this.state.showCreateQuarantine && <NewQuarantineForm handleChange={this.handleChange} addOneQuarantine={this.addOneItem} studentId={this.state.student.id}/>}
+                            {this.state.showCreateContact && <NewContactForm handleChange={this.handleChange} addOneContact={this.addOneItem} studentId={this.state.student.id}/>}
                         </div>
                     </div>
                     <h3 style={{"textAlign": "center", color: "red"}}>Isolations</h3>
                     <div>{isolationsList}</div>
                     <h3 style={{"textAlign": "center", color: "red"}}>Quarantines</h3>
                     <div>{quarantinesList}</div>
+                    <h3 style={{"textAlign": "center", color: "red"}}>Contacts</h3>
+                    <div>{contactsList}</div>
                 </div>
 
             )
