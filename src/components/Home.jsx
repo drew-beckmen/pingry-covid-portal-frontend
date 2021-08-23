@@ -295,7 +295,27 @@ class Home extends React.Component {
                                     </tr>
                                 </tbody>
                             </table>
-                    <h3><img src="https://image.flaticon.com/icons/png/512/32/32441.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Cohort Data:</h3>
+                    <div className="col">
+                                <h2><img src="https://www.freeiconspng.com/uploads/school-student-icon-16.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> Student Quarantines and Isolations:</h2>
+                                <hr/>
+                                <em><p>Shows the breakdown of the number of people currently in quarantine or isolation by grade.</p></em>
+                                <BarChart 
+                                    width={1200}
+                                    height={400}
+                                    barGap={0}
+                                    data={this.state.grades}
+                                    margin={{
+                                        top: 5, right: 30, left: 0, bottom: 5
+                                    }}>
+                                        <XAxis dataKey="name" interval={1}/>
+                                        <YAxis />
+                                        <Legend />
+                                        <Tooltip cursor={{fill: '#8fe8f2'}}/>
+                                        <Bar dataKey="isolation" fill="#3268a8" />
+                                        <Bar dataKey="quarantine" fill="#b6cae0" />
+                                </BarChart>
+                        </div>
+                        <h3><img src="https://image.flaticon.com/icons/png/512/32/32441.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Cohort Data:</h3>
                     <table className="table">
                         <thead>
                             <tr>
@@ -356,26 +376,6 @@ class Home extends React.Component {
                             </tr>
                         </tbody>
                     </table>
-                    <div className="col">
-                                <h2><img src="https://www.freeiconspng.com/uploads/school-student-icon-16.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> Student Quarantines and Isolations:</h2>
-                                <hr/>
-                                <em><p>Shows the breakdown of the number of people currently in quarantine or isolation by grade.</p></em>
-                                <BarChart 
-                                    width={1200}
-                                    height={400}
-                                    barGap={0}
-                                    data={this.state.grades}
-                                    margin={{
-                                        top: 5, right: 30, left: 0, bottom: 5
-                                    }}>
-                                        <XAxis dataKey="name" interval={1}/>
-                                        <YAxis />
-                                        <Legend />
-                                        <Tooltip cursor={{fill: '#8fe8f2'}}/>
-                                        <Bar dataKey="isolation" fill="#3268a8" />
-                                        <Bar dataKey="quarantine" fill="#b6cae0" />
-                                </BarChart>
-                        </div>
                     <h3><img src="https://static.thenounproject.com/png/1248170-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/>Adults Only:</h3>
                     <table className="table">
                         <thead>
