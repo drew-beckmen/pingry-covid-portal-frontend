@@ -18,6 +18,7 @@ const EditIsolation = (props) => {
                 <input id="completed" className="form-control" type="checkbox" name="completed" defaultChecked={props.info.isolation.completed} onChange={props.handleChange}/>
                 <label>Additional notes:</label>
                 <input className="form-control" type="text" name="notes" value={props.info.isolation.notes} onChange={props.handleChange}/>
+                <input className="form-control" type="submit" value="Submit"/>
             </div>
         </form>
     )
