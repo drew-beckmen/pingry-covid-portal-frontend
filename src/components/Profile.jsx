@@ -1,7 +1,7 @@
 import React from 'react'; 
 import { Redirect } from 'react-router-dom';
 import PasswordForm from './PasswordForm' 
-
+import DataExport from './DataExport'
 
 class Profile extends React.Component {
     state = {
@@ -33,7 +33,6 @@ class Profile extends React.Component {
             return <Redirect to="/login" />
         }
 
-        console.log(this.props)
         return (
             <div className="container"> 
                 <div className="row">
@@ -43,6 +42,12 @@ class Profile extends React.Component {
                         <button className="btn btn-secondary" onClick={() => this.setState({showEdit: !this.state.showEdit})}>Change Password</button>
                         { this.state.showEdit && <PasswordForm handleSubmit={this.handleSubmit} />}
                     </div>
+                </div>
+                <div className="row">
+                    { localStorage.write === "true" && <div className="col">
+                        <h3>Please click the button below to generate a CSV export of Covid-19 data</h3>
+                        <div><DataExport /></div>
+                    </div>}
                 </div>
             </div>
         )

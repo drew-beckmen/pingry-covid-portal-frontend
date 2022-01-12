@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react'; 
 import { Redirect } from 'react-router-dom'; 
 import IsolationShow from './IsolationShow'
@@ -9,7 +10,8 @@ class IsolationsList extends React.Component {
         this.state = {
             isolations: [], 
             sortNewest: false, 
-            showOnlyActive: false 
+            showOnlyActive: false,
+            showEndingToday: false
         }
     }
 
@@ -44,6 +46,12 @@ class IsolationsList extends React.Component {
                 let dateB = new Date(b.start_isolation)
                 return dateB-dateA
             })
+        }
+
+        if (this.state.showEndingToday) {
+            isolationsList= isolationsList.filter(i =>
+                moment(i.start_isolation, "YYYY-MM-DD").add(10, 'days').format("YYYY-MM-DD") <= moment().format("YYYY-MM-DD")
+            );
         }
         if (this.state.showOnlyActive) {
             isolationsList = isolationsList.filter(q => !q.completed)
@@ -81,11 +89,14 @@ class IsolationsList extends React.Component {
                                 </tbody>
                             </table>
                         <div className="form-check">
-                        <input className="form-check-input" name="sortNewest" type="checkbox" onChange={this.handleChange}/>
+                                <input className="form-check-input" name="sortNewest" type="checkbox" onChange={this.handleChange}/>
                                 <label className="form-check-label">Sort Newest to Oldest</label>
                                 <br/>
                                 <input className="form-check-input" name="showOnlyActive" type="checkbox" onChange={this.handleChange}/>
                                 <label className="form-check-label">Show Only Active Isolations</label>
+                                <br/>
+                                <input className="form-check-input" name="showEndingToday" type="checkbox" onChange={this.handleChange}/>
+                                <label className="form-check-label">Show Isolations Predicted to End Today (or earlier)</label>
                         </div>
                         <hr/>
                         {isolationsList}

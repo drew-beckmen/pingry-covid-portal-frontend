@@ -110,7 +110,6 @@ class IsolationShow extends React.Component {
                         <h5 className="card-title">{this.state.isolation.confirmed ? "Confirmed Positive" : "Presumed Positive"}</h5>
                     )}
                     <p className="card-text">Test Barcode: {this.state.isolation.barcode ? this.state.isolation.barcode : "No Barcode Added"}</p>
-                    <p className="card-text">Date Symptoms Began Improving: {this.state.isolation.date_improving || "Not Yet Improving"}</p>
                     <p className="card-text">Is the person fever free?: {this.state.isolation.fever_free ? "Yes" : "No"}</p>
                     <p className="card-text">Earliest Possible End Date: {this.state.isolation.end_date}</p>
                     <p className="card-text">{this.state.isolation.completed ? "Isolation Completed" : "Isolation Incomplete"}</p>

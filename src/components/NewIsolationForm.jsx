@@ -5,7 +5,6 @@ class NewIsolationForm extends React.Component {
         isolation: {
             student_id: this.props.studentId, 
             start_isolation: null, 
-            date_improving: null, 
             fever_free: false, 
             end_date: null, 
             completed: false,
@@ -98,8 +97,6 @@ class NewIsolationForm extends React.Component {
                             <input id="barcode" className="form-control" type="text" name="barcode" value={this.state.isolation.barcode} onChange={this.handleChange} />    
                         </div>
                     )}
-                    <label>Date of Symptom Improvement:</label>
-                    <input className="form-control" type="date" name="date_improving" value={this.state.isolation.date_improving} onChange={this.handleChange}/>
                     <label>Is the student fever free?:</label>
                     <input id="fever" className="form-control" type="checkbox" name="fever_free" defaultChecked={this.state.isolation.fever_free} onChange={this.handleChange}/>
                     <label>End Date (please populate for +10 days if symptoms are improving):</label>
