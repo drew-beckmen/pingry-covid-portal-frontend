@@ -62,6 +62,7 @@ class IsolationContactFrom extends React.Component {
                         <label>Date of Exposure for ENTIRE Group of People:</label>
                         <input className="form-control" type="date" name="date_exposure" value={this.state.exposure} onChange={this.handleDateChange}/>
                         <label>Is this just a contact since all of the individuals above are vaccinated?:</label>
+                        <input id="is_vaccinated" className="form-control" type="checkbox" name="is_vaccinated" onChange={this.handleIsVaccinated}/>
                         <input className="form-control" type="submit" value="Submit" />
                     </div>
                 </form>
