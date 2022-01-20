@@ -99,7 +99,7 @@ class NewIsolationForm extends React.Component {
                     )}
                     <label>Is the student fever free?:</label>
                     <input id="fever" className="form-control" type="checkbox" name="fever_free" defaultChecked={this.state.isolation.fever_free} onChange={this.handleChange}/>
-                    <label>End Date (please populate for +10 days if symptoms are improving):</label>
+                    <label>End Date (default is +10 days):</label>
                     <input className="form-control" type="date" name="end_date" value={this.state.isolation.end_date} onChange={this.handleChange}/>
                     <label>Is the student's isolation resolved?:</label>
                     <input id="completed" className="form-control" type="checkbox" name="completed" defaultChecked={this.state.isolation.completed} onChange={this.handleChange} disabled/>

@@ -76,7 +76,7 @@ class Home extends React.Component {
                                 <h2><img src="https://static.thenounproject.com/png/3391554-200.png" alt="logo" className="img-thumbnail" style={{width: 50, height: 50}}/> Internal Pingry COVID-19 Stats:</h2>
                                 <hr/>
                                 <p>The data below represents the current state of coronavirus within the Pingry community. Data in the table is split according to campus. The graph to the right shows the number of students expected to be out of school due to COVID-19 on any given day in the next 5 days (ignore weekends).</p>
-                                <p>Statistics listed include total isolations and quarantines at both campuses as well as active isolations and quarantines at both campuses. The number of new quarantines and isolations within the last 72 hours is also included. Data is also split by cohort in the event Pingry enters density reduced mode. Please contact Drew Beckmen with concerns.</p>
+                                <p>Statistics listed include total isolations and quarantines at both campuses as well as active isolations and quarantines at both campuses. The number of new quarantines and isolations within the last 72 hours is also included. Please contact Drew Beckmen with concerns.</p>
                                 
                         </div>
                         <div className="col">
@@ -407,9 +407,6 @@ class Home extends React.Component {
                             </tr>
                         </tbody>
                     </table>
-                    <div className="text-center">
-                    <img src="https://pingryanywhere.org/assets/img/logo.svg" style={{width: 300, height: 100, display: "inline-block", background: "navy"}}></img>
-                    </div>
                 </div>
             )
         } 

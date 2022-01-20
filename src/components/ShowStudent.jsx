@@ -119,7 +119,7 @@ class ShowStudent extends React.Component {
     }
 
     //add contacts for a students isolation
-    handleSubmit = (e, whatToPost, dateToPost, is_seven_day, is_vaccinated) => {
+    handleSubmit = (e, whatToPost, dateToPost, is_vaccinated) => {
         e.preventDefault(); 
         let objectsToPost;
         let target;
@@ -131,7 +131,6 @@ class ShowStudent extends React.Component {
                         converted_to_isolation: false, 
                         completed: false, 
                         student_id: c.value,
-                        is_seven_day: is_seven_day,
                         notes: `This quarantine is linked to ${this.state.student.first_name} ${this.state.student.last_name}'s isolation. It was created because this person came into contact with  ${this.state.student.first_name} ${this.state.student.last_name}, a presumed or confirmed positive case of COVID-19`
                     }}
                 )

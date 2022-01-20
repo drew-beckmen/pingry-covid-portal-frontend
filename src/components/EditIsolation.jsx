@@ -18,7 +18,8 @@ const EditIsolation = (props) => {
                 <input id="completed" className="form-control" type="checkbox" name="completed" defaultChecked={props.info.isolation.completed} onChange={props.handleChange}/>
                 <label>Additional notes:</label>
                 <input className="form-control" type="text" name="notes" value={props.info.isolation.notes} onChange={props.handleChange}/>
-                <input className="form-control" type="submit" value="Submit"/>
+                {(!props.info.isolation.end_date && props.info.isolation.completed) && (<p>You must input end date when marking as completed.</p>)}
+                <input className="form-control" type="submit" value="Submit" disabled={(!props.info.isolation.end_date && props.info.isolation.completed)}/>
             </div>
         </form>
     )
