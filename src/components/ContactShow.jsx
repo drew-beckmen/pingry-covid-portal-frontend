@@ -49,6 +49,7 @@ class ContactShow extends React.Component {
                     {hasStudentNameInfo && <h3 className="card-title">{`${first_name} ${last_name} - ${veracross_id}`}</h3>}
                     <h5 className="card-title">Date of Exposure: {this.state.contact.exposure}</h5>
                     <p className="card-text">Notes: {this.state.contact.notes ? this.state.contact.notes : "No Notes Added"}</p>
+                    <p className="card-text">Reason: {this.state.contact.recent_recovery ? "Recent Covid-19 Recovery" : "Fully Vaccinated"}</p>
                     { this.state.showButton && this.deleteBtn}
                     { this.state.showDetails && this.btn }
                 </div>
